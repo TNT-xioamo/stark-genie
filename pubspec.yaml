@@ -34,6 +34,12 @@ dependencies:
   cookie_jar: ^3.0.1
   dio_http2_adapter: ^2.0.0
   shared_preferences: ^2.0.7
+  # flutter_local_notifications: ^12.0.4
+  local_notifier: ^0.1.5
+  google_fonts: ^3.0.1
+  web_socket_channel: ^2.2.0
+  get: ^3.23.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
