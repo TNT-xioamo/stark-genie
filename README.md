@@ -1,4 +1,4 @@
-# mac_app
+# stark_genie
 
 A new Flutter project.
 

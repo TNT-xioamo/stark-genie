@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(mac_app LANGUAGES CXX)
+project(stark_genie LANGUAGES CXX)
 
-set(BINARY_NAME "mac_app")
+set(BINARY_NAME "stark_genie")
 
 cmake_policy(SET CMP0063 NEW)
 

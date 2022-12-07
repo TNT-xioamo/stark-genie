@@ -1,6 +1,6 @@
 {
-    "name": "mac_app",
-    "short_name": "mac_app",
+    "name": "stark_genie",
+    "short_name": "stark_genie",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

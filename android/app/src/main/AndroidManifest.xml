@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mac_app">
+    package="com.example.stark_genie">
    <application
-        android:label="mac_app"
+        android:label="stark_genie"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
