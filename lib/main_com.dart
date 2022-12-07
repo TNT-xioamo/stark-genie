@@ -37,7 +37,7 @@ class MacosUIGalleryApp extends StatelessWidget {
           title: const Text('Flutter layout demo'),
         ),
         body: const Center(
-          child: Text(apiBaseUrl2),
+          child: Text('buildEnv'),
         ),
       )
     );
