@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:stark_genie/env.dart';
+import 'package:get/get.dart';
 
 void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -22,6 +24,7 @@ class MacosUIGalleryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buildEnv = Get.find<BuildEnvironment>();
     return MaterialApp(
       title: 'Stark',
       debugShowCheckedModeBanner: false,
@@ -34,7 +37,7 @@ class MacosUIGalleryApp extends StatelessWidget {
           title: const Text('Flutter layout demo'),
         ),
         body: const Center(
-          child: Text('你好'),
+          child: Text(apiBaseUrl2),
         ),
       )
     );

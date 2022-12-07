@@ -16,7 +16,6 @@ class WebSocketUtility {
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
   WebSocketUtility._();
-
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
