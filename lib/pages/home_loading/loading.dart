@@ -13,7 +13,7 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 3), () {
       Navigator.of(context).pushReplacementNamed("/StarkLogin");
     });
   }
@@ -21,10 +21,10 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     //启动图片
-    return new Material(
-      child: new Image.asset(
+    return  Material(
+      child:  Image.asset(
         "images/4x/home_qd.jpg",
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }
