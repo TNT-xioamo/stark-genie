@@ -21,6 +21,11 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     //启动图片
-    return new Image(image: AssetImage("images/4.x/home_qd.jpg"),width: 100,height: 100,);
+    return new Material(
+      child: new Image.asset(
+        "images/4x/home_qd.jpg",
+        fit: BoxFit.fill,
+      ),
+    );
   }
 }
