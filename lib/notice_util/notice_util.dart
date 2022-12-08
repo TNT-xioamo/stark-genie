@@ -1,6 +1,6 @@
 import 'package:local_notifier/local_notifier.dart';
 
-void _localNot() {
+void _localNot(value) {
   final notification = LocalNotification(
     // 用来生成通用唯一识别码
     identifier: '12345',

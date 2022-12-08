@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:local_notifier/local_notifier.dart';
 
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
@@ -93,6 +94,31 @@ class _LoginPageState extends State<StarkLogin> {
     return null;
   }
 
+  // 发送通知
+  String? _localNot(value) {
+    final notification = LocalNotification(
+      // 用来生成通用唯一识别码
+      identifier: '12345',
+      title: '古诗鉴赏从',
+      subtitle: '桃夭 - 佚名〔先秦〕',
+      body: '桃之夭夭，灼灼其华。之子于归，宜其室家。\n桃之夭夭，有蕡其实。之子于归，宜其家室。\n桃之夭夭，其叶蓁蓁。之子于归，宜其家人。',
+      // 用来设置是否静音
+      silent: true,
+    );
+    notification.onShow = () {
+      // 显示通知
+    };
+    // 通知关闭
+    notification.onClose = (even) {};
+    // // 通知被点击了
+    notification.onClick = () {
+      print(value);
+    };
+    // '你点击了通知的第$index个选项'
+    notification.onClickAction = (index) {};
+    notification.show();
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: unnecessary_new
@@ -178,22 +204,22 @@ class _LoginPageState extends State<StarkLogin> {
     Widget loginButtonArea = Container(
       margin: EdgeInsets.only(left: 80, right: 80),
       height: 40.0,
-      child: SizedBox(width: 80, height: 40,
+      child: SizedBox(
+        width: 80,
+        height: 40,
         child: ElevatedButton(
           // style: ElevatedButton.styleFrom(minimumSize: Size(100, 50),
           // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60))),
           child: Text("登录",),
           onPressed: () {
-          //点击登录按钮，解除焦点，回收键盘
+            //点击登录按钮，解除焦点，回收键盘
             _focusNodePassWord.unfocus();
             _focusNodeUserName.unfocus();
             if (_formKey.currentState!.validate()) {
               // 只有输入通过验证， 才会执行
               _formKey.currentState!.save();
+              _localNot("点击通知");
               // 登陆操作
-              if (kDebugMode) {
-                print("$_username + $_password");
-              }
             }
           },
         ),
@@ -207,11 +233,15 @@ class _LoginPageState extends State<StarkLogin> {
       body: GestureDetector(
         child: ListView(
           children: <Widget>[
-            SizedBox(height: 80,),
+            SizedBox(
+              height: 80,
+            ),
             logoImageArea,
             SizedBox(height: 70),
             inputTextArea,
-            SizedBox(height: 80,),
+            SizedBox(
+              height: 80,
+            ),
             loginButtonArea
           ],
         ),
