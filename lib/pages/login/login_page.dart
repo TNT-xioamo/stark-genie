@@ -121,7 +121,8 @@ class _LoginPageState extends State<StarkLogin> {
     notification.onClickAction = (index) {};
     notification.show();
   }
-
+  
+  // 唤醒浏览器
   Future<void> _launchInBrowser(url) async {
     if (!await launchUrl(url,mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
