@@ -220,9 +220,7 @@ class _LoginPageState extends State<StarkLogin> {
         child: ElevatedButton(
           // style: ElevatedButton.styleFrom(minimumSize: Size(100, 50),
           // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60))),
-          child: Text(
-            "登录",
-          ),
+          child: const Text("登录"),
           onPressed: () {
             //点击登录按钮，解除焦点，回收键盘
             _focusNodePassWord.unfocus();

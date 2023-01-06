@@ -43,6 +43,7 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   bot_toast: ^4.0.3
   url_launcher: ^6.1.7
+  flutter_macos_webview: ^0.0.6
 
 
 
