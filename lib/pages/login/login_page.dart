@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 import 'dart:math' as math;
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -113,7 +114,8 @@ class _LoginPageState extends State<StarkLogin> {
     // // 通知被点击了
     notification.onClick = () {
       print(value);
-      final Uri toLaunch = Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
+      final Uri toLaunch =
+          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
       _launchInBrowser(toLaunch);
     };
@@ -121,10 +123,21 @@ class _LoginPageState extends State<StarkLogin> {
     notification.onClickAction = (index) {};
     notification.show();
   }
-  
+
+  // 处理登陆
+  void _handleLogin(val) async {
+    try {
+      var response = await Dio().get('http://localhost:8080/login?username=Jimi&password=123456');
+      print(response.data);
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
   // 唤醒浏览器
   Future<void> _launchInBrowser(url) async {
-    if (!await launchUrl(url,mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw 'Could not launch $url';
     }
   }
