@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:stark_genie/dio_util/dio_util.dart';
+import 'package:stark_genie/server/dio_util/dio_util.dart';
 
 class DioTokenInterceptors extends Interceptor {
   @override
@@ -7,14 +7,15 @@ class DioTokenInterceptors extends Interceptor {
     if (options.headers['refreshToken'] == null) {
       DioUtil.getInstance()?.dio.lock();
       Dio _tokenDio = Dio();
-      _tokenDio.get("http://172.16.0.19:9001/getRefreshToken").then((d) {
-        options.headers['refreshToken'] = d;
-        handler.next(options);
-      }).catchError((error, StackTrace) {
-        handler.reject(error, true);
-      }).whenComplete(() {
-        DioUtil.getInstance()?.dio.unlock();
-      });
+      _tokenDio
+        ..get("http://localhost:8080/getRefreshToken").then((d) {
+          options.headers['refreshToken'] = d;
+          handler.next(options);
+        }).catchError((error, stackTrace) {
+          handler.reject(error, true);
+        }).whenComplete(() {
+          DioUtil.getInstance()?.dio.unlock();
+        }); // unlock the dio
     } else {
       options.headers['refreshToken'] = options.headers['refreshToken'];
       handler.next(options);
@@ -23,7 +24,8 @@ class DioTokenInterceptors extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    // 响应前需要做刷新token 的操作
+    // 响应前需要做刷新token的操作
+
     super.onResponse(response, handler);
   }
 

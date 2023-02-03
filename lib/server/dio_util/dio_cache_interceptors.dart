@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:dio/dio.dart';
-import 'package:stark_genie/dio_util/dio_util.dart';
+import 'package:stark_genie/server/dio_util/dio_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheObject {
@@ -8,6 +8,7 @@ class CacheObject {
       : timeStamp = DateTime.now().millisecondsSinceEpoch;
   Response response;
   int timeStamp;
+
   @override
   bool operator ==(other) {
     return response.hashCode == other.hashCode;
@@ -18,7 +19,7 @@ class CacheObject {
 }
 
 class DioCacheInterceptors extends Interceptor {
-  // 为确保迭代器顺序和对象插入时间一致顺序一致，使用LinkedHashMap
+  // 为确保迭代器顺序和对象插入时间一致顺序一致，我们使用LinkedHashMap
   var cache = LinkedHashMap<String, CacheObject>();
   // sp
   SharedPreferences? preferences;
@@ -29,6 +30,7 @@ class DioCacheInterceptors extends Interceptor {
     if (!DioUtil.CACHE_ENABLE) return super.onRequest(options, handler);
     // 是否刷新缓存
     bool refresh = options.extra["refresh"] == true;
+
     if (refresh) {
       // 删除本地缓存
       delete(options.uri.toString());
@@ -40,25 +42,30 @@ class DioCacheInterceptors extends Interceptor {
       var ob = cache[key];
       if (ob != null) {
         // 内存缓存
-        if ((DateTime.now().millisecondsSinceEpoch - ob.timeStamp) / 1000 < DioUtil.MAX_CACHE_AGE) {
+        if ((DateTime.now().millisecondsSinceEpoch - ob.timeStamp) / 1000 <
+            DioUtil.MAX_CACHE_AGE) {
           return handler.resolve(cache[key]!.response);
         } else {
           //若已过期则删除缓存，继续向服务器请求
           cache.remove(key);
         }
+
         // 磁盘缓存
       }
     }
     super.onRequest(options, handler);
   }
+
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     // 把响应的数据保存到缓存
     if (DioUtil.CACHE_ENABLE) {
       _saveCache(response);
     }
+
     super.onResponse(response, handler);
   }
+
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     // TODO: implement onError
@@ -77,6 +84,7 @@ class DioCacheInterceptors extends Interceptor {
       cache[key] = CacheObject(object);
     }
   }
+
   void delete(String key) {
     cache.remove(key);
   }

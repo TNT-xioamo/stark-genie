@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:ffi';
 import 'dart:math' as math;
+// import 'package:http/http.dart' as http;
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:stark_genie/dio_util/dio_method.dart';
-import 'package:stark_genie/dio_util/dio_response.dart';
-import 'package:stark_genie/dio_util/dio_util.dart';
+// import 'package:stark_genie/server/dio_util/dio_method.dart';
+// import 'package:stark_genie/server/dio_util/dio_response.dart';
+// import 'package:stark_genie/server/dio_util/dio_util.dart';
 
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
@@ -129,13 +129,12 @@ class _LoginPageState extends State<StarkLogin> {
 
   // 处理登陆
   void _handleLogin() async {
-    CancelToken _cancelToken = CancelToken();
     try {
-      // DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
+      // DioResponse result = await DioUtil().request("/rd/recruits/list", method: DioMethod.get, params: {
       //   "username": _username,
       //   "password": _password
       // });
-      print('登陆啦');
+      
     } catch (e) {
       print(e);
     }
