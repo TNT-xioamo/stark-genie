@@ -17,7 +17,8 @@ class DioUtil {
   // 响应超时
   static const int RECEIVE_TIMEOUT = 6 * 1000;
   // 请求前缀
-  static String BASE_URL = "http://localhonst:8080";
+  // static String BASE_URL = "http://localhonst:8080";
+  static String BASE_URL = "http://172.16.0.19:9001";
   // 网络缓存
   static bool CACHE_ENABLE = false;
   // 最大缓存时间 默认7天

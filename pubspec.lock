@@ -118,13 +118,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  flutter_macos_webview:
-    dependency: "direct main"
-    description:
-      name: flutter_macos_webview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.6"
   flutter_screenutil:
     dependency: "direct main"
     description:

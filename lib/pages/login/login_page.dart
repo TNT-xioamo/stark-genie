@@ -9,6 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:stark_genie/dio_util/dio_method.dart';
+import 'package:stark_genie/dio_util/dio_response.dart';
+import 'package:stark_genie/dio_util/dio_util.dart';
+
 
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
@@ -114,8 +118,7 @@ class _LoginPageState extends State<StarkLogin> {
     // // 通知被点击了
     notification.onClick = () {
       print(value);
-      final Uri toLaunch =
-          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
+      final Uri toLaunch = Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
       _launchInBrowser(toLaunch);
     };
@@ -125,13 +128,19 @@ class _LoginPageState extends State<StarkLogin> {
   }
 
   // 处理登陆
-  void _handleLogin(val) async {
+  void _handleLogin() async {
+    CancelToken _cancelToken = CancelToken();
     try {
-      var response = await Dio().get('http://localhost:8080/login?username=Jimi&password=123456');
-      print(response.data);
-    } catch (e) {
-      print(e);
-    }
+        DioUtil.getInstance()?.openLog();
+        print(DioUtil);
+        DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
+          "username": _username,
+          "password": _password
+        });
+        print(result.data);
+      } catch (e) {
+        print(e);
+      }
     return null;
   }
 
@@ -241,7 +250,7 @@ class _LoginPageState extends State<StarkLogin> {
             if (_formKey.currentState!.validate()) {
               // 只有输入通过验证， 才会执行
               _formKey.currentState!.save();
-              _localNot("点击通知");
+              _handleLogin();
               // 登陆操作
             }
           },
@@ -256,12 +265,14 @@ class _LoginPageState extends State<StarkLogin> {
       body: GestureDetector(
         child: ListView(
           children: <Widget>[
+            // ignore: prefer_const_constructors
             SizedBox(
               height: 80,
             ),
             logoImageArea,
-            SizedBox(height: 70),
+            const SizedBox(height: 70),
             inputTextArea,
+            // ignore: prefer_const_constructors
             SizedBox(
               height: 80,
             ),

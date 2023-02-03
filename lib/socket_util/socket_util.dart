@@ -15,13 +15,11 @@ class WebSocketUtility {
   static late WebSocketUtility _socket;
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
-  WebSocketUtility._();
+   WebSocketUtility._();
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
-    if (_socket == null) {
-      _socket = new WebSocketUtility._();
-    }
+    _socket ??= new WebSocketUtility._();
     return _socket;
   }
 

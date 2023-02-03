@@ -7,7 +7,7 @@ class DioTokenInterceptors extends Interceptor {
     if (options.headers['refreshToken'] == null) {
       DioUtil.getInstance()?.dio.lock();
       Dio _tokenDio = Dio();
-      _tokenDio.get("http://localhost:8080/getRefreshToken").then((d) {
+      _tokenDio.get("http://172.16.0.19:9001/getRefreshToken").then((d) {
         options.headers['refreshToken'] = d;
         handler.next(options);
       }).catchError((error, StackTrace) {
