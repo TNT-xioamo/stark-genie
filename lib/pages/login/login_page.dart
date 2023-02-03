@@ -4,7 +4,6 @@ import 'dart:math' as math;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -132,14 +131,11 @@ class _LoginPageState extends State<StarkLogin> {
   void _handleLogin() async {
     CancelToken _cancelToken = CancelToken();
     try {
-      var response = await Dio().get('http://www.example.com');
-      
-      print(response.data);
       // DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
       //   "username": _username,
       //   "password": _password
       // });
-      // print(result.data);
+      print('登陆啦');
     } catch (e) {
       print(e);
     }

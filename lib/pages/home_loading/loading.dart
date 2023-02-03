@@ -22,9 +22,9 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     //启动图片
     return  Material(
-      child:  Image.asset(
+      child: Image.asset(
         "images/4x/home_qd.jpg",
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
       ),
     );
   }
