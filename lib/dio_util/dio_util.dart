@@ -66,7 +66,7 @@ class DioUtil {
     _dio.interceptors.add(CookieManager(cookieJar));
 
     // 刷新token 拦截器(lock/unlock)
-    _dio.interceptors.add(DioTokenInterceptors());
+    // _dio.interceptors.add(DioTokenInterceptors());
 
     // 添加缓存拦截器
     _dio.interceptors.add(DioCacheInterceptors());

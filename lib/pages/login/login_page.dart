@@ -4,6 +4,7 @@ import 'dart:math' as math;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,7 +13,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:stark_genie/dio_util/dio_method.dart';
 import 'package:stark_genie/dio_util/dio_response.dart';
 import 'package:stark_genie/dio_util/dio_util.dart';
-
 
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
@@ -118,7 +118,8 @@ class _LoginPageState extends State<StarkLogin> {
     // // 通知被点击了
     notification.onClick = () {
       print(value);
-      final Uri toLaunch = Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
+      final Uri toLaunch =
+          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
       _launchInBrowser(toLaunch);
     };
@@ -131,15 +132,17 @@ class _LoginPageState extends State<StarkLogin> {
   void _handleLogin() async {
     CancelToken _cancelToken = CancelToken();
     try {
-        DioUtil.getInstance()?.openLog();
-        DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
-          "username": _username,
-          "password": _password
-        });
-        print(result.data);
-      } catch (e) {
-        print(e);
-      }
+      var response = await Dio().get('http://www.example.com');
+      
+      print(response.data);
+      // DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
+      //   "username": _username,
+      //   "password": _password
+      // });
+      // print(result.data);
+    } catch (e) {
+      print(e);
+    }
     return null;
   }
 
