@@ -132,7 +132,6 @@ class _LoginPageState extends State<StarkLogin> {
     CancelToken _cancelToken = CancelToken();
     try {
         DioUtil.getInstance()?.openLog();
-        print(DioUtil);
         DioResponse result = await DioUtil().request("/user/user/auth", method: DioMethod.get, params: {
           "username": _username,
           "password": _password

@@ -145,8 +145,7 @@ class WebSocketUtility {
   void reconnect() {
     if (_reconnectTimes < _reconnectCount) {
       _reconnectTimes++;
-      _reconnectTimer =
-          new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
+      _reconnectTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
         openSocket();
       });
     } else {
