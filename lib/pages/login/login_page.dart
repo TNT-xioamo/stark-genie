@@ -9,9 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import 'package:stark_genie/server/dio_util/dio_method.dart';
-// import 'package:stark_genie/server/dio_util/dio_response.dart';
-// import 'package:stark_genie/server/dio_util/dio_util.dart';
+import 'package:stark_genie/server/dio_util/dio_method.dart';
+import 'package:stark_genie/server/dio_util/dio_response.dart';
+import 'package:stark_genie/server/dio_util/dio_util.dart';
 
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
@@ -42,7 +42,6 @@ class _LoginPageState extends State<StarkLogin> {
 
     /// 监听用户名框的输入改变
     _userNameController.addListener(() {
-      print(_userNameController.text);
       // 监听文本框输入变化，当有内容的时候，显示清除按钮，否则不显示
       if (_userNameController.text.length > 0) {
         _isShowClear = true;
@@ -116,9 +115,7 @@ class _LoginPageState extends State<StarkLogin> {
     notification.onClose = (even) {};
     // // 通知被点击了
     notification.onClick = () {
-      print(value);
-      final Uri toLaunch =
-          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
+      final Uri toLaunch = Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
       _launchInBrowser(toLaunch);
     };
@@ -130,11 +127,12 @@ class _LoginPageState extends State<StarkLogin> {
   // 处理登陆
   void _handleLogin() async {
     try {
-      // DioResponse result = await DioUtil().request("/rd/recruits/list", method: DioMethod.get, params: {
-      //   "username": _username,
-      //   "password": _password
-      // });
-      
+      DioResponse result = await DioUtil().request("/user/user/auth",method: DioMethod.get, params: {
+        "username": _username,
+        "password": _password
+      });
+      var data = result.data;
+      // if (data.code != 200) return;
     } catch (e) {
       print(e);
     }

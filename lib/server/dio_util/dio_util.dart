@@ -19,7 +19,7 @@ class DioUtil {
   static const int RECEIVE_TIMEOUT = 6 * 1000;
 
   /// 请求的URL前缀
-  static String BASE_URL = "http://test4.easthome.com";
+  static String BASE_URL = "http://172.16.0.19:9001";
 
   /// 是否开启网络缓存,默认false
   static bool CACHE_ENABLE = false;
