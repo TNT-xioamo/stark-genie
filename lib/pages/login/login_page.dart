@@ -1,6 +1,8 @@
 import 'dart:async';
+// import 'dart:convert';
 import 'dart:ffi';
 import 'dart:math' as math;
+import 'package:dio/dio.dart';
 // import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -115,7 +117,8 @@ class _LoginPageState extends State<StarkLogin> {
     notification.onClose = (even) {};
     // // 通知被点击了
     notification.onClick = () {
-      final Uri toLaunch = Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
+      final Uri toLaunch =
+          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
       _launchInBrowser(toLaunch);
     };
@@ -124,15 +127,17 @@ class _LoginPageState extends State<StarkLogin> {
     notification.show();
   }
 
-  // 处理登陆
+  /// 处理登陆
   void _handleLogin() async {
     try {
-      DioResponse result = await DioUtil().request("/user/user/auth",method: DioMethod.get, params: {
-        "username": _username,
-        "password": _password
-      });
-      var data = result.data;
-      // if (data.code != 200) return;
+      DioResponse result = await DioUtil().request(
+        "/user/user/auth",
+        method: DioMethod.post,
+        data: {"username": _username, "password": _password},
+      );
+      var data = new Map<String, dynamic>.from(result.data);
+      // if (data['code'] == 200) {}
+      print('===${data}===');
     } catch (e) {
       print(e);
     }
