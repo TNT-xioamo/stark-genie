@@ -116,12 +116,7 @@ class _LoginPageState extends State<StarkLogin> {
     // 通知关闭
     notification.onClose = (even) {};
     // // 通知被点击了
-    notification.onClick = () {
-      final Uri toLaunch =
-          Uri.parse('http://172.16.0.16:8000/#/login?redirect=%2Fhome');
-      // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
-      _launchInBrowser(toLaunch);
-    };
+    notification.onClick = () {};
     // '你点击了通知的第$index个选项'
     notification.onClickAction = (index) {};
     notification.show();
@@ -136,8 +131,12 @@ class _LoginPageState extends State<StarkLogin> {
         data: {"username": _username, "password": _password},
       );
       var data = new Map<String, dynamic>.from(result.data);
-      // if (data['code'] == 200) {}
-      print('===${data}===');
+      if (data['code'] != 200) return print('===${data}===');
+      print('===${data['data']['refreshToken']}===');
+      final Uri toLaunch = Uri.parse(
+          'http://172.16.0.16:8000/#/login?token=${data['data']['refreshToken']}');
+      // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
+      _launchInBrowser(toLaunch);
     } catch (e) {
       print(e);
     }
