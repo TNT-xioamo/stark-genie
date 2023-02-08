@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   local_notifier
+  tray_manager
   url_launcher_windows
 )
 
