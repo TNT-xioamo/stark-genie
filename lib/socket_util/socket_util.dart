@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-const String _SOCKET_URL = 'ws://121.40.165.18:8800';
+const String _SOCKET_URL = 'ws://192.168.28.157:9009/notice/{userId}';
 
 enum SocketStatus {
   SocketStatusConnected, // 已连接
@@ -13,6 +13,7 @@ enum SocketStatus {
 class WebSocketUtility {
   /// 单例对象
   static late WebSocketUtility _socket;
+
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
    WebSocketUtility._();
@@ -45,17 +46,18 @@ class WebSocketUtility {
 
   /// 初始化WebSocket
   void initWebSocket(
-      {Function? onOpen, Function? onMessage, Function? onError}) {
+      {String? api, Function? onOpen, Function? onMessage, Function? onError}) {
     this.onOpen = onOpen!;
     this.onMessage = onMessage!;
     this.onError = onError!;
-    openSocket();
+    openSocket(api);
   }
 
   /// 开启WebSocket连接
-  void openSocket() {
+  void openSocket(api) {
     closeSocket();
-    _webSocket = IOWebSocketChannel.connect(_SOCKET_URL);
+    var _SOCKET_IP = api ?? _SOCKET_URL;
+    _webSocket = IOWebSocketChannel.connect(_SOCKET_IP);
     print('WebSocket连接成功: $_SOCKET_URL');
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
