@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-const String _SOCKET_URL = 'ws://192.168.28.157:9009/notice/{userId}';
+const String _SOCKET_URL = 'ws://192.168.28.157:9009';
 
 enum SocketStatus {
   SocketStatusConnected, // 已连接
@@ -14,9 +14,9 @@ class WebSocketUtility {
   /// 单例对象
   static late WebSocketUtility _socket;
 
-
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
-   WebSocketUtility._();
+  WebSocketUtility._();
+
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
@@ -44,20 +44,22 @@ class WebSocketUtility {
 
   Function onMessage; // 接收消息回调
 
+  var _SOCKET_IP;
+
   /// 初始化WebSocket
   void initWebSocket(
       {String? api, Function? onOpen, Function? onMessage, Function? onError}) {
     this.onOpen = onOpen!;
     this.onMessage = onMessage!;
     this.onError = onError!;
-    openSocket(api);
+    this._SOCKET_IP = api ?? _SOCKET_URL;
+    openSocket();
   }
 
   /// 开启WebSocket连接
-  void openSocket(api) {
+  void openSocket() {
     closeSocket();
-    var _SOCKET_IP = api ?? _SOCKET_URL;
-    _webSocket = IOWebSocketChannel.connect(_SOCKET_IP);
+    _webSocket = IOWebSocketChannel.connect(this._SOCKET_IP);
     print('WebSocket连接成功: $_SOCKET_URL');
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
@@ -147,7 +149,8 @@ class WebSocketUtility {
   void reconnect() {
     if (_reconnectTimes < _reconnectCount) {
       _reconnectTimes++;
-      _reconnectTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
+      _reconnectTimer =
+          new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
         openSocket();
       });
     } else {
