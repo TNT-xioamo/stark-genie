@@ -133,6 +133,7 @@ class _LoginPageState extends State<StarkLogin> {
       var data = new Map<String, dynamic>.from(result.data);
       if (data['code'] != 200) return print('===${data}===');
       print('===${data['data']['refreshToken']}===');
+      Navigator.pushReplacement();
       final Uri toLaunch = Uri.parse(
           'http://172.16.0.16:8000/#/login?token=${data['data']['refreshToken']}');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
