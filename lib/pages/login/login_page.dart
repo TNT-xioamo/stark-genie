@@ -15,6 +15,8 @@ import 'package:stark_genie/server/dio_util/dio_method.dart';
 import 'package:stark_genie/server/dio_util/dio_response.dart';
 import 'package:stark_genie/server/dio_util/dio_util.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class StarkLogin extends StatefulWidget {
   const StarkLogin({Key? key}) : super(key: key);
   @override
@@ -133,11 +135,22 @@ class _LoginPageState extends State<StarkLogin> {
       var data = new Map<String, dynamic>.from(result.data);
       if (data['code'] != 200) return print('===${data}===');
       print('===${data['data']['refreshToken']}===');
-      Navigator.pushReplacement();
-      final Uri toLaunch = Uri.parse(
-          'http://172.16.0.16:8000/#/login?token=${data['data']['refreshToken']}');
+      final prefs = await SharedPreferences.getInstance();
+      final setTokenResult =
+          await prefs.setString('user_token', data['data']['refreshToken']);
+      await prefs.setInt('user_phone', data['phone']);
+      await prefs.setString('user_phone', data['name']);
+      if(setTokenResult){
+        debugPrint('保存登录token成功');
+        Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => route == null);
+      }else{
+        debugPrint('error, 保存登录token失败');
+      }
+      // Navigator.pushReplacement();
+      // final Uri toLaunch = Uri.parse(
+      //     'http://172.16.0.16:8000/#/login?token=${data['data']['refreshToken']}');
       // final Uri toLaunch = Uri(scheme: 'http', host: '172.16.0.16:8000', path: 'headers/');
-      _launchInBrowser(toLaunch);
+      // _launchInBrowser(toLaunch);
     } catch (e) {
       print(e);
     }
