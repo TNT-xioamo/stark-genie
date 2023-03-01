@@ -20,6 +20,11 @@ class _LoadingState extends State<Loading> {
         '/StarkLogin',
         (route) => route == null,
       );
+    } else {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        '/StarkHomePage',
+        (route) => route == null,
+      );
     }
   }
 

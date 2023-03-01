@@ -6,6 +6,7 @@ import 'package:local_notifier/local_notifier.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'pages/login/login_page.dart';
 import 'pages/home_loading/loading.dart';
+import 'pages/main/main_page.dart';
 
 void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -44,6 +45,7 @@ class _AppState extends State<MacosUIGalleryApp> {
       ),
       routes: <String, WidgetBuilder>{
         "/StarkLogin": (context) => const StarkLogin(),
+        "/StarkHomePage": (context) => const StarkHomePage(),
       },
     );
   }

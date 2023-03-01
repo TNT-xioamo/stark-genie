@@ -11,8 +11,7 @@ class StarkHomePage extends StatefulWidget {
 class _HomePageState extends State<StarkHomePage> {
   @override
   void _hideWindow() {
-    windowManager
-        .hide(); // will hide the window and the app will be running in the background
+    // windowManager.hide(); // will hide the window and the app will be running in the background
   }
 
   @override

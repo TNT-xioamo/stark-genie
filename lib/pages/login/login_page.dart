@@ -138,8 +138,8 @@ class _LoginPageState extends State<StarkLogin> {
       final prefs = await SharedPreferences.getInstance();
       final setTokenResult =
           await prefs.setString('user_token', data['data']['refreshToken']);
-      await prefs.setInt('user_phone', data['phone']);
-      await prefs.setString('user_phone', data['name']);
+      // await prefs.setInt('user_phone', _username);
+      // await prefs.setString('user_phone', data['name']);
       if(setTokenResult){
         debugPrint('保存登录token成功');
         Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => route == null);
