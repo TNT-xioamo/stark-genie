@@ -32,8 +32,8 @@ class _LoadingState extends State<Loading> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
-      handleToken();
-      // Navigator.of(context).pushReplacementNamed("/StarkLogin");
+      // handleToken();
+      Navigator.of(context).pushReplacementNamed("/StarkLogin");
     });
   }
 
@@ -42,8 +42,8 @@ class _LoadingState extends State<Loading> {
     //启动图片
     return Material(
       child: Image.asset(
-        "images/4x/home_qd.jpg",
-        fit: BoxFit.fill,
+        "images/4x/hello.png",
+        fit: BoxFit.cover,
       ),
     );
   }

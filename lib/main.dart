@@ -7,10 +7,23 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'pages/login/login_page.dart';
 import 'pages/home_loading/loading.dart';
 import 'pages/main/main_page.dart';
+import 'package:window_manager/window_manager.dart';
 
 void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = WindowOptions(
+    size: Size(250, 560),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.hidden,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
   await localNotifier.setup(
     appName: 'stark-genie',
     // 仅 Windows
@@ -33,9 +46,7 @@ class _AppState extends State<MacosUIGalleryApp> {
       debugShowCheckedModeBanner: false,
       home: new Scaffold(
         backgroundColor: Colors.cyan,
-        body: new Center(
-          child: const Loading()
-        ),
+        body: new Center(child: const Loading()),
       ),
       theme: ThemeData(
         primaryColor: const Color(0xff303030),
