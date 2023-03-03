@@ -14,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = WindowOptions(
-    size: Size(250, 560),
+    size: Size(327, 529),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,

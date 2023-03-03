@@ -39,10 +39,10 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    //启动图片
+    // 启动图片
     return Material(
       child: Image.asset(
-        "images/4x/hello.png",
+        "images/4x/hello.jpg",
         fit: BoxFit.cover,
       ),
     );
