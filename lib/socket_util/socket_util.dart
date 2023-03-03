@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -46,20 +47,28 @@ class WebSocketUtility {
 
   var _SOCKET_IP;
 
+  var userId;
+
   /// 初始化WebSocket
-  void initWebSocket(
-      {String? api, Function? onOpen, Function? onMessage, Function? onError}) {
+  void initWebSocket(int i,
+      {String? api,
+      Int? userId,
+      Function? onOpen,
+      Function? onMessage,
+      Function? onError}) {
     this.onOpen = onOpen!;
     this.onMessage = onMessage!;
     this.onError = onError!;
     this._SOCKET_IP = api ?? _SOCKET_URL;
+    this.userId = userId ?? 1;
     openSocket();
   }
 
   /// 开启WebSocket连接
   void openSocket() {
     closeSocket();
-    _webSocket = IOWebSocketChannel.connect(this._SOCKET_IP);
+    _webSocket =
+        IOWebSocketChannel.connect('${this._SOCKET_IP}/${this.userId}');
     print('WebSocket连接成功: $_SOCKET_URL');
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
