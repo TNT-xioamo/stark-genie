@@ -14,6 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:stark_genie/server/dio_util/dio_method.dart';
 import 'package:stark_genie/server/dio_util/dio_response.dart';
 import 'package:stark_genie/server/dio_util/dio_util.dart';
+import 'package:cherry_toast/cherry_toast.dart';
+// import 'package:overlay_support/overlay_support.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -133,17 +135,20 @@ class _LoginPageState extends State<StarkLogin> {
         data: {"username": _username, "password": _password},
       );
       var data = new Map<String, dynamic>.from(result.data);
-      if (data['code'] != 200) return print('===${data}===');
-      print('===${data['data']['refreshToken']}===');
+      debugPrint('===${data['msg']}===');
+      if (data['code'] != 200)
+        return CherryToast.info(title: Text(data['msg'])).show(context);
       final prefs = await SharedPreferences.getInstance();
       final setTokenResult =
           await prefs.setString('user_token', data['data']['refreshToken']);
       // await prefs.setInt('user_phone', _username);
       // await prefs.setString('user_phone', data['name']);
-      if(setTokenResult){
+      if (setTokenResult) {
         debugPrint('保存登录token成功');
-        Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => route == null);
-      }else{
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            '/StarkHomePage', (route) => route == null);
+        return CherryToast.success(title: Text('登陆成功！')).show(context);
+      } else {
         debugPrint('error, 保存登录token失败');
       }
       // Navigator.pushReplacement();

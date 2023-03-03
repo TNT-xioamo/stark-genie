@@ -42,10 +42,11 @@ dependencies:
   get: ^3.23.1
   flutter_screenutil: ^5.6.0
   font_awesome_flutter: ^10.3.0
-  bot_toast: ^4.0.3
   url_launcher: ^6.1.7
   tray_manager: ^0.2.0
   window_manager: ^0.3.1
+  # overlay_support: ^2.1.0
+  cherry_toast: ^1.1.0
 
 
 
