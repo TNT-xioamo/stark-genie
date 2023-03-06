@@ -30,10 +30,7 @@ class _HomePageState extends State<StarkHomePage> {
       WebSocketUtility().initHeartBeat();
     }, onMessage: (data) {
       print(data);
-       debugPrint('链接成功');
-    }, onError: (e) {
-      print(e);
-    });
+    }, onError: (e) {  print(e); });
   }
 
   @override

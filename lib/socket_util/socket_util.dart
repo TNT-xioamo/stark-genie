@@ -1,6 +1,6 @@
-
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -18,7 +18,7 @@ enum SocketStatus {
 
 class WebSocketUtility {
   /// 单例对象
-  static WebSocketUtility ? _socket;
+  static WebSocketUtility? _socket;
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
   WebSocketUtility._();
@@ -30,9 +30,9 @@ class WebSocketUtility {
     return _socket = WebSocketUtility._();
   }
 
-  late IOWebSocketChannel _webSocket; // WebSocket
+  IOWebSocketChannel? _webSocket; // WebSocket
 
-  late SocketStatus _socketStatus = SocketStatus.SocketStatusClosed; // socket状态
+  SocketStatus _socketStatus = SocketStatus.SocketStatusClosed; // socket状态
 
   var _heartBeat; // 心跳定时器
 
@@ -85,7 +85,7 @@ class WebSocketUtility {
     }
     onOpen();
     // 接收消息
-    _webSocket.stream.listen((data) => webSocketOnMessage(data),
+    _webSocket?.stream.listen((data) => webSocketOnMessage(data),
         onError: webSocketOnError, onDone: webSocketOnDone);
   }
 
@@ -133,7 +133,7 @@ class WebSocketUtility {
   void closeSocket() {
     if (_webSocket != null) {
       print('WebSocket连接关闭');
-      _webSocket.sink.close();
+      _webSocket?.sink.close();
       destroyHeartBeat();
       _socketStatus = SocketStatus.SocketStatusClosed;
     }
@@ -145,7 +145,7 @@ class WebSocketUtility {
       switch (_socketStatus) {
         case SocketStatus.SocketStatusConnected:
           print('发送中：' + message);
-          _webSocket.sink.add(message);
+          _webSocket?.sink.add(message);
           break;
         case SocketStatus.SocketStatusClosed:
           print('连接已关闭');
