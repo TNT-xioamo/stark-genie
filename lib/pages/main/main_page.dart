@@ -26,10 +26,11 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   void _handleInitSocket() {
-    WebSocketUtility().initWebSocket(1, onOpen: () {
+    WebSocketUtility().initWebSocket(userId: '1', onOpen: () {
       WebSocketUtility().initHeartBeat();
     }, onMessage: (data) {
       print(data);
+       debugPrint('链接成功');
     }, onError: (e) {
       print(e);
     });

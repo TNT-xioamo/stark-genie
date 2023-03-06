@@ -18,7 +18,7 @@ enum SocketStatus {
 
 class WebSocketUtility {
   /// 单例对象
-  static late WebSocketUtility _socket;
+  static WebSocketUtility ? _socket;
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
   WebSocketUtility._();
@@ -26,10 +26,8 @@ class WebSocketUtility {
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
-    if (_socket == null) {
-      _socket ??= new WebSocketUtility._();
-    }
-    return _socket;
+    if (_socket == null) _socket ??= new WebSocketUtility._();
+    return _socket = WebSocketUtility._();
   }
 
   late IOWebSocketChannel _webSocket; // WebSocket
@@ -57,7 +55,7 @@ class WebSocketUtility {
   var userId;
 
   /// 初始化WebSocket
-  void initWebSocket(int i,
+  void initWebSocket(
       {String? api,
       String? userId,
       Function? onOpen,
