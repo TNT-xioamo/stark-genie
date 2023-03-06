@@ -1,9 +1,14 @@
+
 import 'dart:async';
-import 'dart:ffi';
+
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-const String _SOCKET_URL = 'ws://192.168.28.157:9009';
+const String _SOCKET_URL = 'ws://192.168.28.157:9009/notice';
+
+// Map<String, dynamic> headers = new Map();
+
+// headers['origin'] = 'https://x.xx.com';
 
 enum SocketStatus {
   SocketStatusConnected, // 已连接
@@ -21,13 +26,15 @@ class WebSocketUtility {
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
-    _socket ??= new WebSocketUtility._();
+    if (_socket == null) {
+      _socket ??= new WebSocketUtility._();
+    }
     return _socket;
   }
 
-  IOWebSocketChannel _webSocket; // WebSocket
+  late IOWebSocketChannel _webSocket; // WebSocket
 
-  SocketStatus _socketStatus; // socket状态
+  late SocketStatus _socketStatus = SocketStatus.SocketStatusClosed; // socket状态
 
   var _heartBeat; // 心跳定时器
 
@@ -39,11 +46,11 @@ class WebSocketUtility {
 
   var _reconnectTimer; // 重连定时器
 
-  Function onError; // 连接错误回调
+  late Function onError; // 连接错误回调
 
-  Function onOpen; // 连接开启回调
+  late Function onOpen; // 连接开启回调
 
-  Function onMessage; // 接收消息回调
+  late Function onMessage; // 接收消息回调
 
   var _SOCKET_IP;
 
@@ -52,7 +59,7 @@ class WebSocketUtility {
   /// 初始化WebSocket
   void initWebSocket(int i,
       {String? api,
-      Int? userId,
+      String? userId,
       Function? onOpen,
       Function? onMessage,
       Function? onError}) {
@@ -174,9 +181,9 @@ class WebSocketUtility {
 }
 
 
- /// 使用方法
- /// import 'package:my_app/utils/web_socket_utility.dart';
- /// WebSocketUtility().initWebSocket(onOpen: () {
+// 使用方法
+// import 'package:my_app/utils/web_socket_utility.dart';
+// WebSocketUtility().initWebSocket(onOpen: () {
 //   WebSocketUtility().initHeartBeat();
 // }, onMessage: (data) {
 //   print(data);
