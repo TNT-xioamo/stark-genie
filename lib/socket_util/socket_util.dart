@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-const String _SOCKET_URL = 'ws://192.168.28.157:9009/notice';
+const String _SOCKET_URL = 'ws://172.16.0.19:8100/notice';
 
 // Map<String, dynamic> headers = new Map();
 
