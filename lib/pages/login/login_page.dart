@@ -142,7 +142,8 @@ class _LoginPageState extends State<StarkLogin> {
       final setTokenResult =
           await prefs.setString('user_token', data['data']['refreshToken']);
       final user_id = await prefs.setString('user_id', data['data']['userId']);
-      // await prefs.setString('user_phone', data['name']);
+      await prefs.setString('user_phone', _username);
+      await prefs.setString('user_password', _password);
       debugPrint('===${data['data']}===');
       if (setTokenResult) {
         debugPrint('保存登录token成功');
