@@ -142,11 +142,12 @@ class _LoginPageState extends State<StarkLogin> {
       final setTokenResult =
           await prefs.setString('user_token', data['data']['refreshToken']);
       final user_id = await prefs.setInt('user_id', data['data']['userId']);
-      // await prefs.setString('user_phone', _username);
-      // await prefs.setString('user_password', _password);
+      await prefs.setString('user_phone', _username);
+      await prefs.setString('user_password', _password);
       debugPrint('===${data['data']}===');
       if (setTokenResult) {
         debugPrint('保存登录token成功');
+        _localNot(data);
         Navigator.of(context).pushNamedAndRemoveUntil(
             '/StarkHomePage', (route) => route == null);
         return CherryToast.success(title: Text('登陆成功！')).show(context);

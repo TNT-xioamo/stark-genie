@@ -23,6 +23,7 @@ class _HomePageState extends State<StarkHomePage> {
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
       _handleInitSocket();
+      _hideWindow();
     });
   }
 
