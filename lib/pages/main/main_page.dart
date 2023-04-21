@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:stark_genie/socket_util/socket_util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StarkHomePage extends StatefulWidget {
   const StarkHomePage({Key? key}) : super(key: key);
@@ -23,14 +24,23 @@ class _HomePageState extends State<StarkHomePage> {
       _handleInitSocket();
     });
   }
+  // @override
 
   @override
-  void _handleInitSocket() {
-    WebSocketUtility().initWebSocket(userId: '1', onOpen: () {
-      WebSocketUtility().initHeartBeat();
-    }, onMessage: (data) {
-      print(data);
-    }, onError: (e) {  print(e); });
+  void _handleInitSocket() async {
+    final prefs = await SharedPreferences.getInstance();
+    final user_id = await prefs.getString('user_id');
+    WebSocketUtility().initWebSocket(
+        userId: user_id,
+        onOpen: () {
+          WebSocketUtility().initHeartBeat();
+        },
+        onMessage: (data) {
+          print(data);
+        },
+        onError: (e) {
+          print(e);
+        });
   }
 
   @override
