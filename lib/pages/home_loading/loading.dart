@@ -14,7 +14,8 @@ class _LoadingState extends State<Loading> {
   handleToken() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('user_token') ?? '';
-    debugPrint('user_token: $token');
+    // debugPrint('user_token: $token');
+    debugPrint('===${token}===');
     if (token == '') {
       Navigator.of(context).pushNamedAndRemoveUntil(
         '/StarkLogin',
@@ -32,7 +33,7 @@ class _LoadingState extends State<Loading> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
-      // handleToken();
+      handleToken();
       Navigator.of(context).pushReplacementNamed("/StarkLogin");
     });
   }

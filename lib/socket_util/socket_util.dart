@@ -58,7 +58,7 @@ class WebSocketUtility {
   /// 初始化WebSocket
   void initWebSocket(
       {String? api,
-      String? userId,
+      userId,
       Function? onOpen,
       Function? onMessage,
       Function? onError}) {
