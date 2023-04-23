@@ -104,7 +104,6 @@ class WebSocketUtility {
 
   /// WebSocket连接错误回调
   webSocketOnError(e) {
-    debugPrint('----连接失败${e}-----');
     WebSocketChannelException ex = e;
     _socketStatus = SocketStatus.SocketStatusFailed;
     onError(ex.message);

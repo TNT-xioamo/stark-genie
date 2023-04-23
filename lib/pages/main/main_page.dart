@@ -33,10 +33,10 @@ class _HomePageState extends State<StarkHomePage> {
   // 发送通知
   String? _localNot(value) {
     final notification = LocalNotification(
-      identifier: '12345', // 用来生成通用唯一识别码
-      title: value.title,
+      identifier: value.id, // 用来生成通用唯一识别码
+      title: value.title ?? '你有新的消息需要处理！',
       subtitle: '桃夭 - 佚名〔先秦〕',
-      body: value.data,
+      body: value.message,
       silent: false, // 用来设置是否静音
     );
     // 显示通知
@@ -60,14 +60,14 @@ class _HomePageState extends State<StarkHomePage> {
           WebSocketUtility().initHeartBeat();
         },
         onMessage: (data) {
-          print(data);
+          print('--${data}--');
           _localNot(data);
         },
         onError: (e) {
           var person = {
             "title": "stark-message",
-            "age": Random().nextInt(100),
-            "data": "请检查网络状态"
+            "id": Random().nextInt(100),
+            "message": "请检查网络状态!"
           };
           _localNot(person);
         });
