@@ -22,10 +22,10 @@ class _LoadingState extends State<Loading> {
         (route) => route == null,
       );
     } else {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        '/StarkHomePage',
-        (route) => route == null,
-      );
+      // Navigator.of(context).pushNamedAndRemoveUntil(
+      //   '/StarkHomePage',
+      //   (route) => route == null,
+      // );
     }
   }
 

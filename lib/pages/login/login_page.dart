@@ -105,15 +105,13 @@ class _LoginPageState extends State<StarkLogin> {
   }
 
   // 发送通知
-  String? _localNot(value) {
+  String? _localNot(data) {
     final notification = LocalNotification(
-      // 用来生成通用唯一识别码
-      identifier: '12345',
-      title: '古诗鉴赏从',
-      subtitle: '桃夭 - 佚名〔先秦〕',
-      body: '桃之夭夭，灼灼其华。之子于归，宜其室家',
-      // 用来设置是否静音
-      silent: false,
+      identifier: data['id'], // 用来生成通用唯一识别码
+      title: '欢迎使用stark',
+      subtitle: '',
+      body: '',
+      silent: false, // 用来设置是否静音
     );
     // 显示通知
     notification.onShow = () {};

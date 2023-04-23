@@ -34,9 +34,9 @@ class _HomePageState extends State<StarkHomePage> {
   // 发送通知
   String? _localNot(data) {
     final notification = LocalNotification(
-      identifier: data['id'], // 用来生成通用唯一识别码
+      identifier: '${data['id']}', // 用来生成通用唯一识别码
       title: '你有新的消息需要处理！',
-      subtitle: '桃夭 - 佚名〔先秦〕',
+      subtitle: '',
       body: data['message'],
       silent: false, // 用来设置是否静音
     );

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
@@ -93,7 +94,8 @@ class WebSocketUtility {
   /// WebSocket接收消息回调
   webSocketOnMessage(data) {
     print('WebSocket连接成功: $_SOCKET_URL');
-    onMessage(data);
+    Map<String, dynamic> responseData = jsonDecode(data);
+    onMessage(responseData);
   }
 
   /// WebSocket关闭连接回调
