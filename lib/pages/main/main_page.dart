@@ -32,12 +32,12 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   // 发送通知
-  String? _localNot(value) {
+  String? _localNot(data) {
     final notification = LocalNotification(
-      identifier: '${value['id']}', // 用来生成通用唯一识别码
+      identifier: data['id'], // 用来生成通用唯一识别码
       title: '你有新的消息需要处理！',
       subtitle: '桃夭 - 佚名〔先秦〕',
-      body: '${value['message']}',
+      body: data['message'],
       silent: false, // 用来设置是否静音
     );
     // 显示通知
