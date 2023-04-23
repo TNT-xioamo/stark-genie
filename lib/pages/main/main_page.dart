@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,10 +34,10 @@ class _HomePageState extends State<StarkHomePage> {
   // 发送通知
   String? _localNot(value) {
     final notification = LocalNotification(
-      identifier: value.id, // 用来生成通用唯一识别码
-      title: value.title ?? '你有新的消息需要处理！',
+      identifier: '${value['id']}', // 用来生成通用唯一识别码
+      title: '你有新的消息需要处理！',
       subtitle: '桃夭 - 佚名〔先秦〕',
-      body: value.message,
+      body: '${value['message']}',
       silent: false, // 用来设置是否静音
     );
     // 显示通知
