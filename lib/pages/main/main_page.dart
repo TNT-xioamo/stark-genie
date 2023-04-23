@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:window_manager/window_manager.dart';
@@ -31,13 +33,11 @@ class _HomePageState extends State<StarkHomePage> {
   // 发送通知
   String? _localNot(value) {
     final notification = LocalNotification(
-      // 用来生成通用唯一识别码
-      identifier: '12345',
-      title: '古诗鉴赏从',
+      identifier: '12345', // 用来生成通用唯一识别码
+      title: value.title,
       subtitle: '桃夭 - 佚名〔先秦〕',
-      body: '桃之夭夭，灼灼其华。之子于归，宜其室家',
-      // 用来设置是否静音
-      silent: false,
+      body: value.data,
+      silent: false, // 用来设置是否静音
     );
     // 显示通知
     notification.onShow = () {};
@@ -64,7 +64,12 @@ class _HomePageState extends State<StarkHomePage> {
           _localNot(data);
         },
         onError: (e) {
-          print(e);
+          var person = {
+            "title": "stark-message",
+            "age": Random().nextInt(100),
+            "data": "请检查网络状态"
+          };
+          _localNot(person);
         });
   }
 

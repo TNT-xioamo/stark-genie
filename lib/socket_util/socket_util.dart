@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:cherry_toast/cherry_toast.dart';
 
 //  ws://172.16.0.19:9001/message/desktop/
 const String _SOCKET_URL = 'ws://172.16.0.19:9001/message/desktop';
@@ -73,9 +74,8 @@ class WebSocketUtility {
   /// 开启WebSocket连接
   void openSocket() {
     closeSocket();
-    _webSocket =
-        IOWebSocketChannel.connect('${this._SOCKET_IP}/${this.userId}');
-    print('WebSocket连接成功: $_SOCKET_URL');
+    _webSocket = IOWebSocketChannel.connect(
+        Uri.parse('${this._SOCKET_IP}/${this.userId}')); //
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
     // 连接成功，重置重连计数器
@@ -92,6 +92,7 @@ class WebSocketUtility {
 
   /// WebSocket接收消息回调
   webSocketOnMessage(data) {
+    print('WebSocket连接成功: $_SOCKET_URL');
     onMessage(data);
   }
 
@@ -103,6 +104,7 @@ class WebSocketUtility {
 
   /// WebSocket连接错误回调
   webSocketOnError(e) {
+    debugPrint('----连接失败${e}-----');
     WebSocketChannelException ex = e;
     _socketStatus = SocketStatus.SocketStatusFailed;
     onError(ex.message);
@@ -178,7 +180,6 @@ class WebSocketUtility {
     }
   }
 }
-
 
 // 使用方法
 // import 'package:my_app/utils/web_socket_utility.dart';
