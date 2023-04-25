@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:stark_genie/server/dio_util/dio_util.dart';
+import 'package:Stark/server/dio_util/dio_util.dart';
 
 class DioTokenInterceptors extends Interceptor {
   @override

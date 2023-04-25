@@ -11,9 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:stark_genie/server/dio_util/dio_method.dart';
-import 'package:stark_genie/server/dio_util/dio_response.dart';
-import 'package:stark_genie/server/dio_util/dio_util.dart';
+import 'package:Stark/server/dio_util/dio_method.dart';
+import 'package:Stark/server/dio_util/dio_response.dart';
+import 'package:Stark/server/dio_util/dio_util.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 // import 'package:overlay_support/overlay_support.dart';
 

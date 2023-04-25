@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:stark_genie/socket_util/socket_util.dart';
+import 'package:Stark/socket_util/socket_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:local_notifier/local_notifier.dart';
 

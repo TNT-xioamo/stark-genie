@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:stark_genie/server/dio_util/dio_response.dart';
+import 'package:Stark/server/dio_util/dio_response.dart';
 
 class DioInterceptors extends Interceptor {
   @override
