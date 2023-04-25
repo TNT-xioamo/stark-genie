@@ -8,6 +8,7 @@ import 'pages/login/login_page.dart';
 import 'pages/home_loading/loading.dart';
 import 'pages/main/main_page.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
@@ -32,13 +33,46 @@ void main() async {
   runApp(const MacosUIGalleryApp());
 }
 
+class MyApp extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
 class MacosUIGalleryApp extends StatefulWidget {
   const MacosUIGalleryApp({Key? key}) : super(key: key);
   @override
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<MacosUIGalleryApp> {
+class _AppState extends State<MacosUIGalleryApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.paused) {
+      // 应用进入后台
+    } else if (state == AppLifecycleState.resumed) {
+      // 应用进入前台
+    } else if (state == AppLifecycleState.inactive) {
+      // 应用进入非活动状态
+    } else if (state == AppLifecycleState.detached) {
+      // 应用退出
+      final prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      // 在这里进行清理操作
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

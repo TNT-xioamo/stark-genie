@@ -13,6 +13,7 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   handleToken() async {
     final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     final token = prefs.getString('user_token') ?? '';
     // debugPrint('user_token: $token');
     debugPrint('===${token}===');

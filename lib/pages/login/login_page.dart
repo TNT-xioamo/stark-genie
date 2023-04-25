@@ -127,6 +127,7 @@ class _LoginPageState extends State<StarkLogin> {
   /// 处理登陆
   void _handleLogin() async {
     try {
+      CherryToast.success(title: Text('请使用内网环境')).show(context);
       DioResponse result = await DioUtil().request(
         "/user/user/auth",
         method: DioMethod.post,
