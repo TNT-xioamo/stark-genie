@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -15,6 +16,8 @@ void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  // 添加自定义标题栏
+  // WindowManager.addFrameWidget(MyTitleBar());
   WindowOptions windowOptions = WindowOptions(
     size: Size(328, 529),
     center: true,
@@ -44,6 +47,27 @@ class MacosUIGalleryApp extends StatefulWidget {
   const MacosUIGalleryApp({Key? key}) : super(key: key);
   @override
   _AppState createState() => _AppState();
+}
+
+class MyTitleBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 40.0,
+        color: Colors.grey[200],
+        child: Row(children: [
+          IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => exit(0), // 点击关闭按钮时退出程序
+          ),
+          Expanded(
+            child: Text(
+              'My App',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ]));
+  }
 }
 
 class _AppState extends State<MacosUIGalleryApp> {
