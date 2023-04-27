@@ -51,8 +51,9 @@ class _userPageState extends State<StarkSideways> {
 
   @override
   Widget build(BuildContext context) {
-    // 绘制头像
+    @override
     Widget userAvatar = Container(
+      // 绘制头像
       width: 45,
       height: 45,
       alignment: Alignment.topCenter, //  设置图片为圆形
@@ -133,6 +134,15 @@ class _userPageState extends State<StarkSideways> {
           ],
         ));
 
+    @override
+    Widget userStatus = Container(
+      width: 45,
+      height: 45,
+      alignment: Alignment.topCenter,
+      padding: const EdgeInsets.all(20),
+    );
+
+    @override
     Widget itemEl = Container(
       // 侧边列表
       width: 165,

@@ -24,11 +24,11 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   void initState() {
-    super.initState();
     Future.delayed(Duration(seconds: 3), () {
       _handleInitSocket();
-      _hideWindow();
+      // _hideWindow();
     });
+    super.initState();
   }
 
   @override

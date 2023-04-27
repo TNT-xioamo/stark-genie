@@ -31,6 +31,7 @@ class _LoginPageState extends State<StarkLogin> {
 
   /// 用户输入框控制器 控制器监听用户输入框操作
   TextEditingController _userNameController = new TextEditingController();
+  TextEditingController _userPassWordController = new TextEditingController();
 
   /// 表单状态
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -56,13 +57,25 @@ class _LoginPageState extends State<StarkLogin> {
       }
       setState(() {});
     });
+
     super.initState();
   }
 
   void initCache() async {
+    // TextEditingController _userNameController = TextEditingController();
+    // TextEditingController _pas = TextEditingController();
     final prefs = await SharedPreferences.getInstance();
-    _username = prefs.getString('user_phone') ?? '';
-    _password = prefs.getString('user_password') ?? '';
+    final phone = prefs.getString('user_phone') ?? '';
+    final pas = prefs.getString('user_password') ?? '';
+    _userNameController = TextEditingController.fromValue(TextEditingValue(
+      text: _username.isEmpty ? phone : '',
+    ));
+    _userPassWordController = TextEditingController.fromValue(TextEditingValue(
+      text: _password.isEmpty ? pas : '',
+    ));
+    // _username = prefs.getString('user_phone') ?? '';
+    // _password = prefs.getString('user_password') ?? '';
+    setState(() {});
   }
 
   @override
@@ -121,7 +134,9 @@ class _LoginPageState extends State<StarkLogin> {
     );
     notification.onShow = () {}; // 显示通知
     notification.onClose = (even) {}; // 通知关闭
-    notification.onClick = () {}; // // 通知被点击了
+    notification.onClick = () {
+      notification.destroy();
+    }; // // 通知被点击了
     notification.onClickAction = (index) {}; // '你点击了通知的第$index个选项'
     notification.show();
   }
@@ -221,6 +236,7 @@ class _LoginPageState extends State<StarkLogin> {
               },
             ),
             TextFormField(
+              controller: _userPassWordController,
               focusNode: _focusNodePassWord,
               keyboardType: TextInputType.number, // 键盘类型
               decoration: InputDecoration(
