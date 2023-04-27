@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:ndialog/ndialog.dart';
+import 'package:Stark/pages/home_content/home_content.dart';
 
 class StarkSideways extends StatefulWidget {
   const StarkSideways({Key? key}) : super(key: key);
+
   @override
   _userPageState createState() => _userPageState();
 }
@@ -35,7 +36,8 @@ Widget _buildLeftNavigation(int index) {
 
 class _userPageState extends State<StarkSideways> {
   bool _isVisible = false; //是现实用户信息
-  bool _isState = false;
+  bool _isState = true;
+
   void _onOpenUserFloating(int value) {
     setState(() {
       _isVisible = !_isVisible;
@@ -183,7 +185,7 @@ class _userPageState extends State<StarkSideways> {
         alignment: Alignment.topCenter,
         decoration:
             const BoxDecoration(color: Color.fromARGB(55, 227, 227, 227)),
-        child: Row(children: <Widget>[
+        child: Stack(children: <Widget>[
           Container(
             width: 65,
             alignment: Alignment.topCenter,
@@ -206,12 +208,30 @@ class _userPageState extends State<StarkSideways> {
               ],
             ),
           ),
-          Visibility(
-            visible: _isVisible,
-            child: Transform.translate(
-              offset: Offset(0.0, -215.0),
-              child: userInfo,
-            ),
+          Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  StarkMain(
+                    key: ValueKey(''),
+                  )
+                ],
+              )),
+          Stack(
+            children: [
+              Positioned(
+                top: 20,
+                left: 10,
+                child: Visibility(
+                  visible: _isVisible,
+                  child: Transform.translate(
+                    offset: Offset(55.0, -15.0),
+                    child: userInfo,
+                  ),
+                ),
+              )
+            ],
           ),
         ]));
   }

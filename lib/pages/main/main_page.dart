@@ -79,8 +79,6 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: StarkSideways(key: null),
-    );
+    return Material(child: StarkSideways(key: null));
   }
 }
