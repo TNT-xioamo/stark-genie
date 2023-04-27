@@ -69,15 +69,53 @@ class _userPageState extends State<StarkSideways> {
     Widget userInfo = Container(
         width: 320,
         height: 150,
-        padding: const EdgeInsets.all(10),
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.all(20),
         decoration: new BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
-          borderRadius: new BorderRadius.all(
-            const Radius.circular(11.0),
-          ),
-        ),
-        child: Row(
-          children: [Text('切换账号')],
+            color: Color.fromARGB(255, 255, 255, 255),
+            borderRadius: new BorderRadius.all(
+              const Radius.circular(11.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5), // 阴影的颜色
+                offset: Offset(10, 20), // 阴影与容器的距离
+                blurRadius: 45.0, // 高斯的标准偏差与盒子的形状卷积。
+                spreadRadius: 0.0, // 在应用模糊之前，框应该膨胀的量。
+              )
+            ]),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text('Stark'),
+                ),
+                Icon(Icons.account_circle,
+                    color: Color.fromARGB(255, 45, 101, 255)),
+                Container(
+                  margin: const EdgeInsets.only(left: 150),
+                  child: userAvatar,
+                ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Text('账号:',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 114, 114, 114), // 文字颜色
+                        )),
+                  ),
+                  Text('165273212312'),
+                ],
+              ),
+            ),
+          ],
         ));
 
     Widget itemEl = Container(
@@ -117,7 +155,10 @@ class _userPageState extends State<StarkSideways> {
           ),
           Visibility(
             visible: _isVisible,
-            child: userInfo,
+            child: Transform.translate(
+              offset: Offset(0.0, -215.0),
+              child: userInfo,
+            ),
           )
         ]));
   }
