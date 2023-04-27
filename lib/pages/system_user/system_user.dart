@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Stark/pages/home_content/home_content.dart';
 
 class StarkSideways extends StatefulWidget {
@@ -37,8 +38,18 @@ Widget _buildLeftNavigation(int index) {
 class _userPageState extends State<StarkSideways> {
   bool _isVisible = false; //是现实用户信息
   bool _isState = true;
+  String account = '';
+  var prefs = null;
 
-  void _onOpenUserFloating(int value) {
+  @override
+  void _initState() {
+    // prefs = SharedPreferences.getInstance();
+    // super._initState();
+  }
+
+  void _onOpenUserFloating(int value) async {
+    prefs = await SharedPreferences.getInstance();
+    account = prefs.getString('user_phone') ?? '';
     setState(() {
       _isVisible = !_isVisible;
       _isState = !_isState;
@@ -124,7 +135,7 @@ class _userPageState extends State<StarkSideways> {
                           color: Color.fromARGB(255, 114, 114, 114), // 文字颜色
                         )),
                   ),
-                  SelectableText('165273212312'),
+                  SelectableText(account),
                 ],
               ),
             ),
