@@ -35,9 +35,11 @@ Widget _buildLeftNavigation(int index) {
 
 class _userPageState extends State<StarkSideways> {
   bool _isVisible = false; //是现实用户信息
+  bool _isState = false;
   void _onOpenUserFloating(int value) {
     setState(() {
       _isVisible = !_isVisible;
+      _isState = !_isState;
     });
   }
 
@@ -136,11 +138,31 @@ class _userPageState extends State<StarkSideways> {
 
     @override
     Widget userStatus = Container(
-      width: 45,
-      height: 45,
-      alignment: Alignment.topCenter,
-      padding: const EdgeInsets.all(20),
-    );
+        width: 45,
+        alignment: Alignment.topCenter,
+        padding: const EdgeInsets.all(0),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                  color: _isState
+                      ? Color.fromARGB(255, 28, 153, 231)
+                      : Color.fromARGB(255, 231, 28, 28),
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(_isState ? '在线' : '离线',
+                style: TextStyle(
+                  color: _isState
+                      ? Color.fromARGB(255, 28, 153, 231)
+                      : Color.fromARGB(255, 231, 28, 28),
+                ))
+          ],
+        ));
 
     @override
     Widget itemEl = Container(
@@ -175,6 +197,12 @@ class _userPageState extends State<StarkSideways> {
                 Row(children: <Widget>[
                   userAvatar,
                 ]),
+                Row(children: <Widget>[
+                  Transform.translate(
+                    offset: Offset(0, 500),
+                    child: userStatus,
+                  ),
+                ]),
               ],
             ),
           ),
@@ -184,7 +212,7 @@ class _userPageState extends State<StarkSideways> {
               offset: Offset(0.0, -215.0),
               child: userInfo,
             ),
-          )
+          ),
         ]));
   }
 }

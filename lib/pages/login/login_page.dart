@@ -61,7 +61,7 @@ class _LoginPageState extends State<StarkLogin> {
     super.initState();
   }
 
-  void initCache() async {
+  Future initCache() async {
     // TextEditingController _userNameController = TextEditingController();
     // TextEditingController _pas = TextEditingController();
     final prefs = await SharedPreferences.getInstance();
