@@ -11,9 +11,12 @@ class StarkMain extends StatefulWidget {
 class _userPageContent extends State<StarkMain> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 65, top: 10),
-      child: Text('123123'),
+    return Expanded(
+      child: Container(
+          width: 900,
+          margin: const EdgeInsets.only(left: 65),
+          padding: const EdgeInsets.only(top: 10, left: 10),
+          child: Text('qeqwe')),
     );
   }
 }

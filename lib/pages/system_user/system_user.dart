@@ -208,8 +208,8 @@ class _userPageState extends State<StarkSideways> {
               ],
             ),
           ),
-          Expanded(
-              flex: 1,
+          ConstrainedBox(
+              constraints: BoxConstraints.expand(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
