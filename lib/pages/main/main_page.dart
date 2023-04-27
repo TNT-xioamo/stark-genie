@@ -46,7 +46,9 @@ class _HomePageState extends State<StarkHomePage> {
     // 通知关闭
     notification.onClose = (even) {};
     // // 通知被点击了
-    notification.onClick = () {};
+    notification.onClick = () {
+      notification.destroy();
+    };
     // '你点击了通知的第$index个选项'
     notification.onClickAction = (index) {};
     notification.show();

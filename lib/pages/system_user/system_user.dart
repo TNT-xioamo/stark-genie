@@ -127,7 +127,7 @@ class _userPageState extends State<StarkSideways> {
               margin: const EdgeInsets.only(left: 170),
               child: TextButton(
                 onPressed: () => _onLogout(),
-                child: Text('注销账号'),
+                child: Text('退出登录'),
               ),
             )
           ],
