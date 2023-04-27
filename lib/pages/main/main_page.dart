@@ -7,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:Stark/socket_util/socket_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:local_notifier/local_notifier.dart';
+import 'package:Stark/pages/system_user/system_user.dart';
 
 class StarkHomePage extends StatefulWidget {
   const StarkHomePage({Key? key}) : super(key: key);
@@ -77,10 +78,7 @@ class _HomePageState extends State<StarkHomePage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Image.asset(
-        "images/4x/home_qd.jpg",
-        fit: BoxFit.fill,
-      ),
+      child: StarkSideways(key: null),
     );
   }
 }

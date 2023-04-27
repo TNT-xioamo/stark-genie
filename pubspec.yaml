@@ -47,7 +47,7 @@ dependencies:
   window_manager: ^0.3.1
   # overlay_support: ^2.1.0
   cherry_toast: ^1.1.0
-
+  ndialog: ^4.3.0
 
 
   # The following adds the Cupertino Icons font to your application.
