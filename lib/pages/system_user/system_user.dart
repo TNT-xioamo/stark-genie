@@ -41,6 +41,14 @@ class _userPageState extends State<StarkSideways> {
     });
   }
 
+  void _onLogout() {
+    _onOpenUserFloating(123);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/StarkLogin',
+      (route) => route == null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // 绘制头像
@@ -68,7 +76,7 @@ class _userPageState extends State<StarkSideways> {
     @override
     Widget userInfo = Container(
         width: 320,
-        height: 150,
+        height: 170,
         alignment: Alignment.topCenter,
         padding: const EdgeInsets.all(20),
         decoration: new BoxDecoration(
@@ -115,6 +123,13 @@ class _userPageState extends State<StarkSideways> {
                 ],
               ),
             ),
+            Container(
+              margin: const EdgeInsets.only(left: 170),
+              child: TextButton(
+                onPressed: () => _onLogout(),
+                child: Text('注销账号'),
+              ),
+            )
           ],
         ));
 
