@@ -223,8 +223,9 @@ class _userPageState extends State<StarkSideways> {
               Positioned(
                 top: 20,
                 left: 10,
-                child: Visibility(
-                  visible: _isVisible,
+                child: AnimatedOpacity(
+                  opacity: _isVisible ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 500),
                   child: Transform.translate(
                     offset: Offset(55.0, -15.0),
                     child: userInfo,
