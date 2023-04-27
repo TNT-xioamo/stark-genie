@@ -56,7 +56,6 @@ class _LoginPageState extends State<StarkLogin> {
       }
       setState(() {});
     });
-    initCache();
     super.initState();
   }
 
