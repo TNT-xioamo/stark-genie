@@ -124,7 +124,7 @@ class _userPageState extends State<StarkSideways> {
                           color: Color.fromARGB(255, 114, 114, 114), // 文字颜色
                         )),
                   ),
-                  Text('165273212312'),
+                  SelectableText('165273212312'),
                 ],
               ),
             ),
