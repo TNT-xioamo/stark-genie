@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:Stark/pages/home_content/home_calendar.dart';
 import 'package:Stark/pages/home_content/home_music.dart';
+import 'package:Stark/pages/home_content/home_aides.dart';
 
 class StarkMain extends StatefulWidget {
   const StarkMain({Key? key}) : super(key: key);
@@ -25,19 +26,23 @@ class _userPageContent extends State<StarkMain> {
           child: Row(
             children: [
               Column(
-                children: [
+                children: <Widget>[
                   Container(child: StarkMusic(key: ValueKey(322))),
                 ],
               ),
               Column(
-                children: [
+                children: <Widget>[
                   Container(
                     child: StarkCalendar(key: ValueKey(321)),
                   )
                 ],
               ),
               Column(
-                children: [Text('3')],
+                children: <Widget>[
+                  StarkAides(
+                    key: ValueKey(321),
+                  )
+                ],
               ),
             ],
           )),
