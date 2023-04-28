@@ -13,23 +13,39 @@ class _userPageContent extends State<StarkMusic>
   @override
   late final AnimationController _playerController;
   late final Animation _animation;
+  late bool _isPlayIcon;
+
   @override
   void initState() {
     _playerController =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this)
-          ..repeat();
-    _animation = Tween<double>(begin: 1, end: 3).animate(_playerController)
-      ..addStatusListener((status) {
-        _playerController.forward();
-      });
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _isPlayIcon = false;
+    // ..addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     //动画从 controller.forward() 正向执行 结束时会回调此方法
+    //     _playerController.reset();
+    //     _playerController.forward();
+    //   }
+    // });
     super.initState();
   }
 
   @override
-  Widget userMusic = Container();
+  void _onMusicPlay() {
+    setState(() {
+      _isPlayIcon = !_isPlayIcon;
+      if (_isPlayIcon) {
+        _playerController..repeat();
+      } else {
+        _playerController..reset();
+      }
+    });
+  }
+
 
   @override
   Widget userMusicText = Container(
+    padding: const EdgeInsets.only(top: 10),
     width: 100,
     child: Text('As I Moved On',
         style: TextStyle(
@@ -59,35 +75,37 @@ class _userPageContent extends State<StarkMusic>
           color: Color.fromARGB(202, 255, 255, 255)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Column(
-            children: [
+            children: <Widget>[
               Container(
                 width: 120,
                 height: 120,
                 alignment: Alignment.topCenter,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://p3.music.126.net/HaZXKgb5D_0Q_7FoxfCL-A==/109951167995289964.jpg?param=200y200'),
-                    fit: BoxFit.cover,
-                  ),
-                  shape: BoxShape.rectangle,
-                  borderRadius: new BorderRadius.all(
-                    const Radius.circular(7.0), // 设置图片为圆形
-                  ),
-                ),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://p3.music.126.net/HaZXKgb5D_0Q_7FoxfCL-A==/109951167995289964.jpg?param=200y200'),
+                      fit: BoxFit.cover,
+                    ),
+                    shape: BoxShape.rectangle,
+                    borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(7.0),
+                      bottomLeft: const Radius.circular(7.0),
+                      topRight: const Radius.circular(3),
+                      bottomRight: const Radius.circular(3),
+                    )),
               ),
             ],
           ),
           Column(
-            children: [
+            children: <Widget>[
               Container(
                 width: 70,
                 height: 120,
                 alignment: Alignment.topCenter,
                 child: Stack(
-                  children: [
+                  children: <Widget>[
                     Positioned(
                       top: 0,
                       left: -60,
@@ -132,13 +150,65 @@ class _userPageContent extends State<StarkMusic>
             ],
           ),
           Column(
-            // mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [userMusicText, userAuthor],
+            children: <Widget>[userMusicText, userAuthor],
           ),
           Column(
-              // mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                width: 140,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 30,
+                          child: FloatingActionButton(
+                            heroTag: 'skip_previous',
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black12,
+                            onPressed: () {},
+                            child: const Icon(Icons.skip_previous),
+                          ),
+                        ),
+                        SizedBox(width: 20)
+                      ],
+                    ),
+                    Column(children: [
+                      SizedBox(
+                        width: 40,
+                        child: FloatingActionButton(
+                          heroTag: 'play_circle',
+                          backgroundColor: Colors.white,
+                          foregroundColor: Color.fromARGB(125, 1, 245, 249),
+                          onPressed: () {
+                            _onMusicPlay();
+                          },
+                          child: _isPlayIcon
+                              ? const Icon(Icons.pause_circle)
+                              : const Icon(Icons.play_circle),
+                        ),
+                      ),
+                      SizedBox(width: 60)
+                    ]),
+                    Column(children: <Widget>[
+                      SizedBox(
+                        width: 30,
+                        child: FloatingActionButton(
+                          heroTag: 'skip_next',
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black12,
+                          onPressed: () {},
+                          child: const Icon(Icons.skip_next),
+                        ),
+                      )
+                    ]),
+                  ],
+                ),
               )
+            ],
+          )
         ],
       ),
     );
