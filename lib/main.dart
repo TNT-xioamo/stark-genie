@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:local_notifier/local_notifier.dart';
@@ -76,6 +77,8 @@ class _AppState extends State<MacosUIGalleryApp> {
     return MaterialApp(
       title: 'Stark',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: [Locale('zh', ''), Locale('en', 'US')],
       home: new Scaffold(
         backgroundColor: Colors.cyan,
         body: new Center(child: const Loading()),

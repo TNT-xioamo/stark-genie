@@ -192,7 +192,7 @@ class _userPageState extends State<StarkSideways> {
     );
 
     return Container(
-        margin: EdgeInsets.only(top: 30),
+        // margin: EdgeInsets.only(top: 30),
         alignment: Alignment.topCenter,
         decoration:
             const BoxDecoration(color: Color.fromARGB(55, 227, 227, 227)),
@@ -200,10 +200,20 @@ class _userPageState extends State<StarkSideways> {
           Container(
             width: 65,
             alignment: Alignment.topCenter,
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(top: 30, left: 10),
             decoration: new BoxDecoration(
-              color: Color.fromARGB(255, 188, 187, 187),
-            ),
+                color: Color.fromARGB(255, 188, 187, 187),
+                borderRadius: new BorderRadius.all(
+                  const Radius.circular(11.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12.withOpacity(0.5), // 阴影的颜色
+                    offset: Offset(5, 5), // 阴影与容器的距离
+                    blurRadius: 35.0, // 高斯的标准偏差与盒子的形状卷积。
+                    spreadRadius: 0.0, // 在应用模糊之前，框应该膨胀的量。
+                  )
+                ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -235,13 +245,15 @@ class _userPageState extends State<StarkSideways> {
                 top: 20,
                 left: 10,
                 child: AnimatedOpacity(
-                  opacity: _isVisible ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 500),
-                  child: Transform.translate(
-                    offset: Offset(55.0, -15.0),
-                    child: userInfo,
-                  ),
-                ),
+                    opacity: _isVisible ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 500),
+                    child: Visibility(
+                      visible: _isVisible,
+                      child: Transform.translate(
+                        offset: Offset(55.0, -15.0),
+                        child: userInfo,
+                      ),
+                    )),
               )
             ],
           ),
