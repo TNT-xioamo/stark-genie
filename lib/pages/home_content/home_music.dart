@@ -12,53 +12,20 @@ class _userPageContent extends State<StarkMusic>
   @override
   late final AnimationController _playerController;
   late final Animation _animation;
-
   @override
   void initState() {
+    _playerController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this)
+          ..repeat();
+    // _animation = Tween<double>(begin: 1, end: 3).animate(_playerController)
+    //   ..addStatusListener((status) {
+    //     _playerController.forward();
+    //   });
     super.initState();
-    _playerController = AnimationController(
-        duration: const Duration(seconds: 300), vsync: this);
-    _animation = Tween<double>(begin: 1, end: 300).animate(_playerController);
-    // ..addStatusListener((status) {
-    //   _playerController.forward();
-    // });
   }
 
-  @override
-  Widget userMusic = Container(
-    width: 120,
-    height: 120,
-    alignment: Alignment.topCenter,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: NetworkImage(
-            'https://p3.music.126.net/sixunTcvD_IXeVqxZnpHkA==/109951163452086313.jpg'),
-        fit: BoxFit.cover,
-      ),
-      shape: BoxShape.rectangle,
-      borderRadius: new BorderRadius.all(
-        const Radius.circular(7.0), // 设置图片为圆形
-      ),
-    ),
-    child: Stack(
-      children: [
-        Positioned(
-          top: 20,
-          child: RotationTransition(
-              alignment: Alignment.center,
-              turns: _animation,
-              child: Container(
-                  decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://p3.music.126.net/sixunTcvD_IXeVqxZnpHkA==/109951163452086313.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ))),
-        )
-      ],
-    ),
-  );
+  // @override
+  // Widget userMusic =
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +41,66 @@ class _userPageContent extends State<StarkMusic>
         children: [
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: [userMusic],
+            children: [
+              Container(
+                width: 120,
+                height: 120,
+                alignment: Alignment.topCenter,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://p3.music.126.net/sixunTcvD_IXeVqxZnpHkA==/109951163452086313.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  shape: BoxShape.rectangle,
+                  borderRadius: new BorderRadius.all(
+                    const Radius.circular(7.0), // 设置图片为圆形
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: RotationTransition(
+                          alignment: Alignment.center,
+                          turns: _playerController,
+                          child: Container(
+                            decoration: BoxDecoration(),
+                            child: Image.asset(
+                                "images/home/cd-mine-43e5492b.png",
+                                height: 120,
+                                width: 120,
+                                fit: BoxFit.cover),
+                          )),
+                    ),
+                    Positioned(
+                        top: 22,
+                        left: 22,
+                        child: RotationTransition(
+                          turns: _playerController,
+                          alignment: Alignment.center,
+                          child: Container(
+                            width: 77,
+                            height: 77,
+                            alignment: Alignment.topCenter,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    'https://p3.music.126.net/sixunTcvD_IXeVqxZnpHkA==/109951163452086313.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                              shape: BoxShape.rectangle,
+                              borderRadius: new BorderRadius.all(
+                                const Radius.circular(70), // 设置图片为圆形
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
+              ),
+            ],
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
