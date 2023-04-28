@@ -71,7 +71,7 @@ class _userPageState extends State<StarkSideways> {
       // 绘制头像
       width: 45,
       height: 45,
-      alignment: Alignment.topCenter, //  设置图片为圆形
+      alignment: Alignment.topCenter,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
@@ -81,6 +81,7 @@ class _userPageState extends State<StarkSideways> {
         ),
         shape: BoxShape.rectangle,
         borderRadius: new BorderRadius.all(
+          // 设置图片为圆形
           const Radius.circular(7.0),
         ),
       ),
