@@ -243,7 +243,7 @@ class _userPageState extends State<StarkSideways> {
           Stack(
             children: [
               Positioned(
-                top: 20,
+                top: 35,
                 left: 10,
                 child: AnimatedOpacity(
                     opacity: _isVisible ? 1.0 : 0.0,
