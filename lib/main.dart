@@ -30,6 +30,7 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+  windowManager.setResizable(false);
   await localNotifier.setup(
     appName: 'stark-genie',
     // 仅 Windows
