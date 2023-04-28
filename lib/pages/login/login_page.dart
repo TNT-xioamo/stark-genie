@@ -266,12 +266,12 @@ class _LoginPageState extends State<StarkLogin> {
 
     // 登陆 按钮
     Widget loginButtonArea = Container(
-      margin: EdgeInsets.only(left: 570, right: 300),
+      margin: EdgeInsets.only(left: 470, right: 300),
       child: SizedBox(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               // minimumSize: Size(10, 50),
-              backgroundColor: Color.fromARGB(255, 5, 112, 252),
+              backgroundColor: Color.fromARGB(255, 37, 128, 247),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(60))),
           child: const Text("登录"),
