@@ -5,6 +5,7 @@ import 'package:ndialog/ndialog.dart';
 import 'package:Stark/pages/home_content/home_calendar.dart';
 import 'package:Stark/pages/home_content/home_music.dart';
 import 'package:Stark/pages/home_content/home_aides.dart';
+import 'package:Stark/pages/home_content/home_weather.dart';
 
 class StarkMain extends StatefulWidget {
   const StarkMain({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _userPageContent extends State<StarkMain> {
               Column(
                 children: <Widget>[
                   Container(child: StarkMusic(key: ValueKey(322))),
+                  Container(child: StarkWeather(key: ValueKey(332))),
                 ],
               ),
               Column(

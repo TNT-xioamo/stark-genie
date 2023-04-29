@@ -42,7 +42,7 @@ class _userPageState extends State<StarkSideways> {
   var prefs = null;
 
   @override
-  void _initState() {
+  void _initState() { 
     // prefs = SharedPreferences.getInstance();
     // super._initState();
   }

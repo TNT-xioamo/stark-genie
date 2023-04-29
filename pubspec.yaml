@@ -53,6 +53,7 @@ dependencies:
   ndialog: ^4.3.0
   calendar_date_picker2: ^0.5.2
   audioplayers: ^4.0.1
+  date_format: ^2.0.7
 
 
   # The following adds the Cupertino Icons font to your application.
