@@ -11,8 +11,8 @@ class _userPageContent extends State<StarkLive> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 650,
-      height: 330,
+      width: 450,
+      height: 250,
       margin: const EdgeInsets.only(right: 10, top: 10),
       decoration: new BoxDecoration(
           borderRadius: new BorderRadius.all(const Radius.circular(11.0)),

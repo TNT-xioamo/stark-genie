@@ -6,6 +6,7 @@ import 'package:Stark/pages/home_content/home_calendar.dart';
 import 'package:Stark/pages/home_content/home_music.dart';
 import 'package:Stark/pages/home_content/home_aides.dart';
 import 'package:Stark/pages/home_content/home_weather.dart';
+import 'package:Stark/pages/home_content/home_live.dart';
 
 class StarkMain extends StatefulWidget {
   const StarkMain({Key? key}) : super(key: key);
@@ -24,28 +25,41 @@ class _userPageContent extends State<StarkMain> {
           decoration: new BoxDecoration(
               borderRadius: new BorderRadius.all(const Radius.circular(11.0)),
               color: Color.fromARGB(106, 255, 255, 255)),
-          child: Row(
+          child: Column(
             children: [
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(child: StarkMusic(key: ValueKey(322))),
-                  Container(child: StarkWeather(key: ValueKey(332))),
+                  Column(
+                    children: <Widget>[
+                      Container(child: StarkMusic(key: ValueKey(322))),
+                      Container(child: StarkWeather(key: ValueKey(332))),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        child: StarkCalendar(key: ValueKey(321)),
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      StarkAides(
+                        key: ValueKey(323),
+                      )
+                    ],
+                  ),
                 ],
               ),
-              Column(
+              Row(
                 children: <Widget>[
-                  Container(
-                    child: StarkCalendar(key: ValueKey(321)),
+                  StarkLive(
+                    key: ValueKey(322),
                   )
                 ],
-              ),
-              Column(
-                children: <Widget>[
-                  StarkAides(
-                    key: ValueKey(321),
-                  )
-                ],
-              ),
+              )
             ],
           )),
     );
