@@ -52,7 +52,7 @@ dependencies:
   cherry_toast: ^1.1.0
   ndialog: ^4.3.0
   calendar_date_picker2: ^0.5.2
-  audioplayers: ^4.0.1
+  audioplayers_platform_interface: ^5.0.0
   date_format: ^2.0.7
 
 

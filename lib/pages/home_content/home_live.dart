@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+
 class StarkLive extends StatefulWidget {
   const StarkLive({Key? key}) : super(key: key);
   @override
@@ -16,7 +17,7 @@ class _userPageContent extends State<StarkLive> {
       margin: const EdgeInsets.only(right: 10, top: 10),
       decoration: new BoxDecoration(
           borderRadius: new BorderRadius.all(const Radius.circular(11.0)),
-          color: Color.fromARGB(201, 171, 38, 38)),
+          color: Color.fromARGB(38, 255, 255, 255)),
     );
   }
 }
