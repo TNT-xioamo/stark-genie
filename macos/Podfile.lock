@@ -1,4 +1,9 @@
 PODS:
+  - beauty_cam (0.0.1):
+    - FlutterMacOS
+  - flutter_webrtc (0.9.25):
+    - FlutterMacOS
+    - WebRTC-SDK (= 104.5112.16)
   - FlutterMacOS (1.0.0)
   - local_notifier (0.1.0):
     - FlutterMacOS
@@ -14,10 +19,13 @@ PODS:
     - FlutterMacOS
   - url_launcher_macos (0.0.1):
     - FlutterMacOS
+  - WebRTC-SDK (104.5112.16)
   - window_manager (0.2.0):
     - FlutterMacOS
 
 DEPENDENCIES:
+  - beauty_cam (from `Flutter/ephemeral/.symlinks/plugins/beauty_cam/macos`)
+  - flutter_webrtc (from `Flutter/ephemeral/.symlinks/plugins/flutter_webrtc/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - local_notifier (from `Flutter/ephemeral/.symlinks/plugins/local_notifier/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos`)
@@ -27,7 +35,15 @@ DEPENDENCIES:
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
+SPEC REPOS:
+  trunk:
+    - WebRTC-SDK
+
 EXTERNAL SOURCES:
+  beauty_cam:
+    :path: Flutter/ephemeral/.symlinks/plugins/beauty_cam/macos
+  flutter_webrtc:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_webrtc/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   local_notifier:
@@ -46,6 +62,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
+  beauty_cam: 76e8a8badaa374934e65d976ac756d1ea905e13a
+  flutter_webrtc: b84df13e005a497c20fa4d8d597f318584f0faa5
   FlutterMacOS: ae6af50a8ea7d6103d888583d46bd8328a7e9811
   local_notifier: e9506bc66fc70311e8bc7291fb70f743c081e4ff
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
@@ -53,6 +71,7 @@ SPEC CHECKSUMS:
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: 5335912b679c073563f29d89d33d10d459f95451
+  WebRTC-SDK: 566e58d2916cb79d770350169a449ea523f5db7c
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
