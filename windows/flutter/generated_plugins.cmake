@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  beauty_cam
   local_notifier
   screen_retriever
   tray_manager

@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import beauty_cam
 import local_notifier
 import path_provider_foundation
 import screen_retriever
@@ -14,6 +15,7 @@ import url_launcher_macos
 import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  BeautyCamPlugin.register(with: registry.registrar(forPlugin: "BeautyCamPlugin"))
   LocalNotifierPlugin.register(with: registry.registrar(forPlugin: "LocalNotifierPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   ScreenRetrieverPlugin.register(with: registry.registrar(forPlugin: "ScreenRetrieverPlugin"))

@@ -86,7 +86,7 @@ class _userPageContent extends State<StarkWeather> {
                   ]),
                   Row(children: [
                     Text(
-                        '天气状况: ${geoInfo['wea']}  ${geoInfo['tem']}°C - ${geoInfo['tem_day']}°C',
+                        '天气: ${geoInfo['wea']}  ${geoInfo['tem']}°C - ${geoInfo['tem_day']}°C',
                         style: TextStyle(
                           color: Color.fromARGB(199, 46, 74, 81),
                           height: 1.7,
