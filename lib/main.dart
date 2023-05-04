@@ -46,7 +46,11 @@ class MyApp extends StatefulWidget {
 }
 
 class MacosUIGalleryApp extends StatefulWidget {
-  const MacosUIGalleryApp({Key? key}) : super(key: key);
+  const MacosUIGalleryApp({Key? key, camera})
+      : super(
+          key: key,
+        );
+
   @override
   _AppState createState() => _AppState();
 }
