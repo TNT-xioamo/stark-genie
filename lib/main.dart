@@ -1,7 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'pages/login/login_page.dart';
@@ -14,8 +17,10 @@ void main() async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  // 添加自定义标题栏
+  // WindowManager.addFrameWidget(MyTitleBar());
   WindowOptions windowOptions = WindowOptions(
-    size: Size(328, 529),
+    size: Size(860, 630),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
@@ -25,11 +30,13 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
+  windowManager.setResizable(false);
   await localNotifier.setup(
     appName: 'stark-genie',
     // 仅 Windows
     shortcutPolicy: ShortcutPolicy.requireCreate,
   );
+  SystemChannels.textInput.invokeMethod('TextInput.hide'); // 禁用IME输入法
   runApp(const MacosUIGalleryApp());
 }
 
@@ -39,45 +46,44 @@ class MyApp extends StatefulWidget {
 }
 
 class MacosUIGalleryApp extends StatefulWidget {
-  const MacosUIGalleryApp({Key? key}) : super(key: key);
+  const MacosUIGalleryApp({Key? key, camera})
+      : super(
+          key: key,
+        );
+
   @override
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<MacosUIGalleryApp> with WidgetsBindingObserver {
+class MyTitleBar extends StatelessWidget {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
+  Widget build(BuildContext context) {
+    return Container(
+        height: 40.0,
+        color: Colors.grey[200],
+        child: Row(children: [
+          IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => exit(0), // 点击关闭按钮时退出程序
+          ),
+          Expanded(
+            child: Text(
+              'My App',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ]));
   }
+}
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    // super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    if (state == AppLifecycleState.paused) {
-      // 应用进入后台
-    } else if (state == AppLifecycleState.resumed) {
-      // 应用进入前台
-    } else if (state == AppLifecycleState.inactive) {
-      // 应用进入非活动状态
-    } else if (state == AppLifecycleState.detached) {
-      // 应用退出
-      final prefs = await SharedPreferences.getInstance();
-      prefs.clear();
-      // 在这里进行清理操作
-    }
-  }
-
+class _AppState extends State<MacosUIGalleryApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Stark',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: [Locale('zh', ''), Locale('en', 'US')],
       home: new Scaffold(
         backgroundColor: Colors.cyan,
         body: new Center(child: const Loading()),

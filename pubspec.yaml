@@ -29,6 +29,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
   dio: ^4.0.0
   http: ^0.13.5
   dio_cookie_manager: ^2.0.0
@@ -47,8 +50,16 @@ dependencies:
   window_manager: ^0.3.1
   # overlay_support: ^2.1.0
   cherry_toast: ^1.1.0
-
-
+  ndialog: ^4.3.0
+  calendar_date_picker2: ^0.5.2
+  audioplayers_platform_interface: ^5.0.0
+  date_format: ^2.0.7
+  beauty_cam: ^0.0.1
+  flutter_webrtc: ^0.9.27
+  camera_universal: ^0.0.1
+  camera: ^0.10.5
+  camera_macos: ^0.0.6+5
+  camera_windows: ^0.2.1+6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -77,6 +88,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/4x/
+    - images/home/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -1,6 +1,6 @@
 import 'dart:async';
 // import 'dart:convert';
-import 'dart:ffi';
+import 'dart:ffi' as ui;
 import 'dart:math' as math;
 import 'package:dio/dio.dart';
 // import 'package:http/http.dart' as http;
@@ -31,6 +31,7 @@ class _LoginPageState extends State<StarkLogin> {
 
   /// 用户输入框控制器 控制器监听用户输入框操作
   TextEditingController _userNameController = new TextEditingController();
+  TextEditingController _userPassWordController = new TextEditingController();
 
   /// 表单状态
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -38,7 +39,7 @@ class _LoginPageState extends State<StarkLogin> {
   var _username = ''; //密码
   var _isShowPwd = false; //是否显示密码
   var _isShowClear = false; //是否显示输入框尾部的清除按钮
-
+  var _isRemember = false;
   @override
   void initState() {
     /// TODO: implement initState
@@ -56,7 +57,25 @@ class _LoginPageState extends State<StarkLogin> {
       }
       setState(() {});
     });
+    if (_isRemember) initCache();
     super.initState();
+  }
+
+  Future initCache() async {
+    // TextEditingController _userNameController = TextEditingController();
+    // TextEditingController _pas = TextEditingController();
+    final prefs = await SharedPreferences.getInstance();
+    final phone = prefs.getString('user_phone') ?? '';
+    final pas = prefs.getString('user_password') ?? '';
+    _userNameController = TextEditingController.fromValue(TextEditingValue(
+      text: _username.isEmpty ? phone : '',
+    ));
+    _userPassWordController = TextEditingController.fromValue(TextEditingValue(
+      text: _password.isEmpty ? pas : '',
+    ));
+    // _username = prefs.getString('user_phone') ?? '';
+    // _password = prefs.getString('user_password') ?? '';
+    setState(() {});
   }
 
   @override
@@ -113,14 +132,12 @@ class _LoginPageState extends State<StarkLogin> {
       body: '',
       silent: false, // 用来设置是否静音
     );
-    // 显示通知
-    notification.onShow = () {};
-    // 通知关闭
-    notification.onClose = (even) {};
-    // // 通知被点击了
-    notification.onClick = () {};
-    // '你点击了通知的第$index个选项'
-    notification.onClickAction = (index) {};
+    notification.onShow = () {}; // 显示通知
+    notification.onClose = (even) {}; // 通知关闭
+    notification.onClick = () {
+      notification.destroy();
+    }; // // 通知被点击了
+    notification.onClickAction = (index) {}; // '你点击了通知的第$index个选项'
     notification.show();
   }
 
@@ -184,9 +201,8 @@ class _LoginPageState extends State<StarkLogin> {
     );
 
     // 输入文本框区域
-
     Widget inputTextArea = Container(
-      margin: EdgeInsets.only(left: 20, right: 20),
+      margin: EdgeInsets.only(left: 300, right: 300),
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
           color: Colors.white),
@@ -198,18 +214,15 @@ class _LoginPageState extends State<StarkLogin> {
             TextFormField(
               controller: _userNameController,
               focusNode: _focusNodeUserName,
-              // 键盘类型
-              // keyboardType: TextInputType.number,
+              keyboardType: TextInputType.number, // 键盘类型
               decoration: InputDecoration(
                 labelText: "用户名",
                 hintText: "请输入手机号",
                 prefixIcon: Icon(Icons.person),
-                // 尾部清除按钮
-                suffixIcon: (_isShowClear)
+                suffixIcon: (_isShowClear) // 尾部清除按钮
                     ? IconButton(
                         onPressed: () {
-                          // 清空输入框内容
-                          _userNameController.clear();
+                          _userNameController.clear(); // 清空输入框内容
                         },
                         icon: Icon(Icons.clear),
                       )
@@ -223,14 +236,15 @@ class _LoginPageState extends State<StarkLogin> {
               },
             ),
             TextFormField(
+              controller: _userPassWordController,
               focusNode: _focusNodePassWord,
+              keyboardType: TextInputType.number, // 键盘类型
               decoration: InputDecoration(
                 labelText: "密码",
                 hintText: "请输入密码",
                 prefixIcon: Icon(Icons.lock),
-                // 是否显示密码
                 suffixIcon: IconButton(
-                  icon: Icon(
+                  icon: Icon(// 是否显示密码
                       (_isShowPwd) ? Icons.visibility : Icons.visibility_off),
                   onPressed: () {
                     setState(() {
@@ -240,11 +254,9 @@ class _LoginPageState extends State<StarkLogin> {
                 ),
               ),
               obscureText: !_isShowPwd,
-              // 密码验证
-              validator: validatePassWord,
-              // 保存数据
+              validator: validatePassWord, // 密码验证
               onSaved: (String? value) {
-                _password = value!;
+                _password = value!; // 保存数据
               },
             ),
           ],
@@ -254,14 +266,14 @@ class _LoginPageState extends State<StarkLogin> {
 
     // 登陆 按钮
     Widget loginButtonArea = Container(
-      margin: EdgeInsets.only(left: 80, right: 80),
-      height: 40.0,
+      margin: EdgeInsets.only(left: 470, right: 300),
       child: SizedBox(
-        width: 80,
-        height: 40,
         child: ElevatedButton(
-          // style: ElevatedButton.styleFrom(minimumSize: Size(100, 50),
-          // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(60))),
+          style: ElevatedButton.styleFrom(
+              // minimumSize: Size(10, 50),
+              backgroundColor: Color.fromARGB(255, 37, 128, 247),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(60))),
           child: const Text("登录"),
           onPressed: () {
             //点击登录按钮，解除焦点，回收键盘
@@ -278,7 +290,6 @@ class _LoginPageState extends State<StarkLogin> {
       ),
     );
     // 第三方登录区域
-
     return Scaffold(
       backgroundColor: Colors.white,
       // 外层添加一个手势，用于点击空白部分，回收键盘
@@ -294,7 +305,7 @@ class _LoginPageState extends State<StarkLogin> {
             inputTextArea,
             // ignore: prefer_const_constructors
             SizedBox(
-              height: 80,
+              height: 10,
             ),
             loginButtonArea
           ],

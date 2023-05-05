@@ -3,6 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  beauty_cam
+  camera_windows
+  flutter_webrtc
   local_notifier
   screen_retriever
   tray_manager
