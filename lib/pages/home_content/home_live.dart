@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:camera_universal/camera_universal.dart';
 import 'package:Stark/live_util/live_macos.dart';
 
 import 'package:camera_macos/camera_macos_arguments.dart';
@@ -17,7 +16,6 @@ import 'package:camera_macos/exceptions.dart';
 import 'package:camera_macos/extensions.dart';
 import 'package:camera_macos/nskit_platform_view.dart';
 
-import 'package:camera_windows/camera_windows.dart';
 
 class StarkLive extends StatefulWidget {
   const StarkLive({Key? key}) : super(key: key);
@@ -28,39 +26,23 @@ class StarkLive extends StatefulWidget {
 class _userPageContent extends State<StarkLive> {
   bool isLive = false;
   String isMacOrWin = '';
+
   final GlobalKey cameraKey = GlobalKey(debugLabel: 'cameraKey');
   late CameraMacOSController macOSController;
 
-  // CameraController cameraController = CameraController();
-
   @override
   void initState() {
-    // TODO: implement initState
+    WidgetsFlutterBinding.ensureInitialized();
     super.initState();
     isPlatform();
-    // task();
   }
-
-  // Future<void> task() async {
-  //   await cameraController.initializeCameras();
-  //   await cameraController.initializeCamera(
-  //     setState: setState,
-  //   );
-  //   await cameraController.activateCamera(
-  //     setState: setState,
-  //     mounted: () {
-  //       print(setState);
-  //       return mounted;
-  //     },
-  //   );
-  // }
 
   @override
   void dispose() {
-    // cameraController.dispose();
     macOSController?.destroy();
     super.dispose();
   }
+
 
   void isPlatform() {
     if (Platform.isAndroid) {
@@ -82,22 +64,6 @@ class _userPageContent extends State<StarkLive> {
 
   @override
   void _onOpenLive() async {
-    // liveMac.currentState!.openLiveCamera();
-    // cameraController.action_get_camera_count(
-    //   onCameraNotInit: () {},
-    //   onCameraNotSelect: () {},
-    //   onCameraNotActive: () {},
-    // );
-    // cameraController.action_change_camera(
-    //   camera_id: 0,
-    //   setState: setState,
-    //   mounted: () {
-    //     return mounted;
-    //   },
-    //   onCameraNotInit: () {},
-    //   onCameraNotSelect: () {},
-    //   onCameraNotActive: () {},
-    // );
     if (isLive && isMacOrWin == 'MacOS') await macOSController?.destroy();
     setState(() {
       isLive = !isLive;

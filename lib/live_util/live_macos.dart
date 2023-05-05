@@ -50,7 +50,7 @@ class _userPageStarkLive extends State<StarkLiveMac> {
   void openLiveCamera() async {
     print('3123123');
     cameraController.action_change_camera(
-      camera_id: 1,
+      camera_id: -1,
       setState: setState,
       mounted: () {
         return mounted;
