@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:camera_universal/camera_universal.dart';
+import 'package:Stark/live_util/live_macos.dart';
 
 import 'package:camera_macos/camera_macos_arguments.dart';
 import 'package:camera_macos/camera_macos_controller.dart';
@@ -15,6 +16,8 @@ import 'package:camera_macos/camera_macos_view.dart';
 import 'package:camera_macos/exceptions.dart';
 import 'package:camera_macos/extensions.dart';
 import 'package:camera_macos/nskit_platform_view.dart';
+
+import 'package:camera_windows/camera_windows.dart';
 
 class StarkLive extends StatefulWidget {
   const StarkLive({Key? key}) : super(key: key);
@@ -55,6 +58,7 @@ class _userPageContent extends State<StarkLive> {
   @override
   void dispose() {
     // cameraController.dispose();
+    macOSController?.destroy();
     super.dispose();
   }
 
@@ -77,7 +81,8 @@ class _userPageContent extends State<StarkLive> {
   }
 
   @override
-  void _onOpenLive() {
+  void _onOpenLive() async {
+    // liveMac.currentState!.openLiveCamera();
     // cameraController.action_get_camera_count(
     //   onCameraNotInit: () {},
     //   onCameraNotSelect: () {},
@@ -93,7 +98,8 @@ class _userPageContent extends State<StarkLive> {
     //   onCameraNotSelect: () {},
     //   onCameraNotActive: () {},
     // );
-    setState(() async {
+    if (isLive && isMacOrWin == 'MacOS') await macOSController?.destroy();
+    setState(() {
       isLive = !isLive;
     });
   }
@@ -137,7 +143,7 @@ class _userPageContent extends State<StarkLive> {
                     borderRadius:
                         new BorderRadius.all(const Radius.circular(11.0)),
                     color: Color.fromARGB(14, 130, 130, 130)),
-                child: isLive
+                child: isLive && isMacOrWin == 'MacOS'
                     ? CameraMacOSView(
                         key: cameraKey,
                         fit: BoxFit.cover,
@@ -150,21 +156,6 @@ class _userPageContent extends State<StarkLive> {
                         },
                       )
                     : Container(),
-                // child: Camera(
-                //   cameraController: cameraController,
-                //   onCameraNotInit: (context) {
-                //     return const SizedBox.shrink();
-                //   },
-                //   onCameraNotSelect: (context) {
-                //     return const SizedBox.shrink();
-                //   },
-                //   onCameraNotActive: (context) {
-                //     return const SizedBox.shrink();
-                //   },
-                //   onPlatformNotSupported: (context) {
-                //     return const SizedBox.shrink();
-                //   },
-                // ),
               )
             ],
           ),
