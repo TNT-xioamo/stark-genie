@@ -57,7 +57,9 @@ dependencies:
   beauty_cam: ^0.0.1
   flutter_webrtc: ^0.9.27
   camera_universal: ^0.0.1
-  camera: ^0.10.0
+  camera: ^0.10.5
+  camera_macos: ^0.0.6+5
+  camera_windows: ^0.2.1+6
   # permission_handler: ^10.2.0
 
   # The following adds the Cupertino Icons font to your application.

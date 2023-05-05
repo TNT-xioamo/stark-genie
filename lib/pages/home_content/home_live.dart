@@ -1,10 +1,20 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart'
-    show debugDefaultTargetPlatformOverride;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
-import 'package:camera/camera.dart';
+import 'package:camera_universal/camera_universal.dart';
+
+import 'package:camera_macos/camera_macos_arguments.dart';
+import 'package:camera_macos/camera_macos_controller.dart';
+import 'package:camera_macos/camera_macos_device.dart';
+import 'package:camera_macos/camera_macos_file.dart';
+import 'package:camera_macos/camera_macos_method_channel.dart';
+import 'package:camera_macos/camera_macos_platform_interface.dart';
+import 'package:camera_macos/camera_macos_view.dart';
+import 'package:camera_macos/exceptions.dart';
+import 'package:camera_macos/extensions.dart';
+import 'package:camera_macos/nskit_platform_view.dart';
 
 class StarkLive extends StatefulWidget {
   const StarkLive({Key? key}) : super(key: key);
@@ -14,25 +24,76 @@ class StarkLive extends StatefulWidget {
 
 class _userPageContent extends State<StarkLive> {
   bool isLive = false;
-  late List<CameraDescription> cameras;
-  var camera;
-  var controller;
+  String isMacOrWin = '';
+  final GlobalKey cameraKey = GlobalKey(debugLabel: 'cameraKey');
+  late CameraMacOSController macOSController;
+
+  // CameraController cameraController = CameraController();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    isPlatform();
+    // task();
   }
+
+  // Future<void> task() async {
+  //   await cameraController.initializeCameras();
+  //   await cameraController.initializeCamera(
+  //     setState: setState,
+  //   );
+  //   await cameraController.activateCamera(
+  //     setState: setState,
+  //     mounted: () {
+  //       print(setState);
+  //       return mounted;
+  //     },
+  //   );
+  // }
 
   @override
   void dispose() {
+    // cameraController.dispose();
     super.dispose();
+  }
+
+  void isPlatform() {
+    if (Platform.isAndroid) {
+      // Android
+    } else if (Platform.isIOS) {
+      // IOS
+    } else if (Platform.isFuchsia) {
+      // Fuchsia
+    } else if (Platform.isWindows) {
+      // Windows
+      isMacOrWin = 'Windows';
+    } else if (Platform.isMacOS) {
+      // MacOS
+      isMacOrWin = 'MacOS';
+    } else if (Platform.isLinux) {
+      // Linux
+    }
   }
 
   @override
   void _onOpenLive() {
-    print('开启直播');
-    setState(() {
+    // cameraController.action_get_camera_count(
+    //   onCameraNotInit: () {},
+    //   onCameraNotSelect: () {},
+    //   onCameraNotActive: () {},
+    // );
+    // cameraController.action_change_camera(
+    //   camera_id: 0,
+    //   setState: setState,
+    //   mounted: () {
+    //     return mounted;
+    //   },
+    //   onCameraNotInit: () {},
+    //   onCameraNotSelect: () {},
+    //   onCameraNotActive: () {},
+    // );
+    setState(() async {
       isLive = !isLive;
     });
   }
@@ -54,6 +115,10 @@ class _userPageContent extends State<StarkLive> {
 
   @override
   Widget build(BuildContext context) {
+    if (isMacOrWin != 'Windows' && isMacOrWin != 'MacOS') {
+      print(isMacOrWin);
+      return Container();
+    }
     return Container(
       width: 770,
       height: 315,
@@ -72,6 +137,34 @@ class _userPageContent extends State<StarkLive> {
                     borderRadius:
                         new BorderRadius.all(const Radius.circular(11.0)),
                     color: Color.fromARGB(14, 130, 130, 130)),
+                child: isLive
+                    ? CameraMacOSView(
+                        key: cameraKey,
+                        fit: BoxFit.cover,
+                        cameraMode: CameraMacOSMode.photo,
+                        onCameraInizialized:
+                            (CameraMacOSController controller) {
+                          setState(() {
+                            this.macOSController = controller;
+                          });
+                        },
+                      )
+                    : Container(),
+                // child: Camera(
+                //   cameraController: cameraController,
+                //   onCameraNotInit: (context) {
+                //     return const SizedBox.shrink();
+                //   },
+                //   onCameraNotSelect: (context) {
+                //     return const SizedBox.shrink();
+                //   },
+                //   onCameraNotActive: (context) {
+                //     return const SizedBox.shrink();
+                //   },
+                //   onPlatformNotSupported: (context) {
+                //     return const SizedBox.shrink();
+                //   },
+                // ),
               )
             ],
           ),

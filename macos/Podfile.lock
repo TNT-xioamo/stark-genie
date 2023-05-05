@@ -1,6 +1,8 @@
 PODS:
   - beauty_cam (0.0.1):
     - FlutterMacOS
+  - camera_macos (0.0.1):
+    - FlutterMacOS
   - flutter_webrtc (0.9.25):
     - FlutterMacOS
     - WebRTC-SDK (= 104.5112.16)
@@ -25,6 +27,7 @@ PODS:
 
 DEPENDENCIES:
   - beauty_cam (from `Flutter/ephemeral/.symlinks/plugins/beauty_cam/macos`)
+  - camera_macos (from `Flutter/ephemeral/.symlinks/plugins/camera_macos/macos`)
   - flutter_webrtc (from `Flutter/ephemeral/.symlinks/plugins/flutter_webrtc/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - local_notifier (from `Flutter/ephemeral/.symlinks/plugins/local_notifier/macos`)
@@ -42,6 +45,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   beauty_cam:
     :path: Flutter/ephemeral/.symlinks/plugins/beauty_cam/macos
+  camera_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/camera_macos/macos
   flutter_webrtc:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_webrtc/macos
   FlutterMacOS:
@@ -63,6 +68,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   beauty_cam: 76e8a8badaa374934e65d976ac756d1ea905e13a
+  camera_macos: c2603f5eed16f05076cf17e12030d2ce55a77839
   flutter_webrtc: b84df13e005a497c20fa4d8d597f318584f0faa5
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   local_notifier: e9506bc66fc70311e8bc7291fb70f743c081e4ff

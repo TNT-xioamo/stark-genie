@@ -6,6 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import beauty_cam
+import camera_macos
 import flutter_webrtc
 import local_notifier
 import path_provider_foundation
@@ -17,6 +18,7 @@ import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   BeautyCamPlugin.register(with: registry.registrar(forPlugin: "BeautyCamPlugin"))
+  CameraMacosPlugin.register(with: registry.registrar(forPlugin: "CameraMacosPlugin"))
   FlutterWebRTCPlugin.register(with: registry.registrar(forPlugin: "FlutterWebRTCPlugin"))
   LocalNotifierPlugin.register(with: registry.registrar(forPlugin: "LocalNotifierPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
