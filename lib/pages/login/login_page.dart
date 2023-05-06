@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:local_notifier/local_notifier.dart';
@@ -211,53 +212,92 @@ class _LoginPageState extends State<StarkLogin> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            TextFormField(
-              controller: _userNameController,
-              focusNode: _focusNodeUserName,
-              keyboardType: TextInputType.number, // 键盘类型
-              decoration: InputDecoration(
-                labelText: "用户名",
-                hintText: "请输入手机号",
-                prefixIcon: Icon(Icons.person),
-                suffixIcon: (_isShowClear) // 尾部清除按钮
-                    ? IconButton(
-                        onPressed: () {
-                          _userNameController.clear(); // 清空输入框内容
-                        },
-                        icon: Icon(Icons.clear),
-                      )
-                    : null,
-              ),
-              // 验证用户名
-              validator: validateUserName,
-              // 保存数据
-              onSaved: (String? value) {
-                _username = value!;
+            RawKeyboardListener(
+              focusNode: FocusNode(),
+              onKey: (RawKeyEvent event) {
+                if (event.logicalKey == LogicalKeyboardKey.backspace &&
+                    event is RawKeyDownEvent) {
+                  setState(() {
+                    final text = _userNameController.text;
+                    if (text.isNotEmpty) {
+                      _userNameController.text =
+                          text.substring(0, text.length - 1);
+                      _userNameController.selection =
+                          TextSelection.fromPosition(
+                        TextPosition(offset: _userNameController.text.length),
+                      );
+                    }
+                  });
+                }
               },
-            ),
-            TextFormField(
-              controller: _userPassWordController,
-              focusNode: _focusNodePassWord,
-              keyboardType: TextInputType.number, // 键盘类型
-              decoration: InputDecoration(
-                labelText: "密码",
-                hintText: "请输入密码",
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(// 是否显示密码
-                      (_isShowPwd) ? Icons.visibility : Icons.visibility_off),
-                  onPressed: () {
-                    setState(() {
-                      _isShowPwd = !_isShowPwd;
-                    });
-                  },
+              child: TextFormField(
+                controller: _userNameController,
+                focusNode: _focusNodeUserName,
+                keyboardType: TextInputType.number, // 键盘类型
+                decoration: InputDecoration(
+                  labelText: "用户名",
+                  hintText: "请输入手机号",
+                  prefixIcon: Icon(Icons.person),
+                  suffixIcon: (_isShowClear) // 尾部清除按钮
+                      ? IconButton(
+                          onPressed: () {
+                            _userNameController.clear(); // 清空输入框内容
+                          },
+                          icon: Icon(Icons.clear),
+                        )
+                      : null,
                 ),
+                // 验证用户名
+                validator: validateUserName,
+                // 保存数据
+                onSaved: (String? value) {
+                  _username = value!;
+                },
               ),
-              obscureText: !_isShowPwd,
-              validator: validatePassWord, // 密码验证
-              onSaved: (String? value) {
-                _password = value!; // 保存数据
+            ),
+            RawKeyboardListener(
+              focusNode: FocusNode(),
+              onKey: (RawKeyEvent event) {
+                if (event.logicalKey == LogicalKeyboardKey.backspace &&
+                    event is RawKeyDownEvent) {
+                  setState(() {
+                    final text = _userPassWordController.text;
+                    if (text.isNotEmpty) {
+                      _userPassWordController.text =
+                          text.substring(0, text.length - 1);
+                      _userPassWordController.selection =
+                          TextSelection.fromPosition(
+                        TextPosition(
+                            offset: _userPassWordController.text.length),
+                      );
+                    }
+                  });
+                }
               },
+              child: TextFormField(
+                controller: _userPassWordController,
+                focusNode: _focusNodePassWord,
+                keyboardType: TextInputType.number, // 键盘类型
+                decoration: InputDecoration(
+                  labelText: "密码",
+                  hintText: "请输入密码",
+                  prefixIcon: Icon(Icons.lock),
+                  suffixIcon: IconButton(
+                    icon: Icon(// 是否显示密码
+                        (_isShowPwd) ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isShowPwd = !_isShowPwd;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: !_isShowPwd,
+                validator: validatePassWord, // 密码验证
+                onSaved: (String? value) {
+                  _password = value!; // 保存数据
+                },
+              ),
             ),
           ],
         ),

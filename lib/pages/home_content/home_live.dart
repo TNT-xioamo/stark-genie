@@ -38,7 +38,7 @@ class _userPageContent extends State<StarkLive> {
 
   @override
   void dispose() {
-    macOSController?.destroy();
+    if (isMacOrWin == 'MacOS') macOSController?.destroy();
     super.dispose();
   }
 
