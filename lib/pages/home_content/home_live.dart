@@ -16,7 +16,6 @@ import 'package:camera_macos/exceptions.dart';
 import 'package:camera_macos/extensions.dart';
 import 'package:camera_macos/nskit_platform_view.dart';
 
-
 class StarkLive extends StatefulWidget {
   const StarkLive({Key? key}) : super(key: key);
   @override
@@ -42,7 +41,6 @@ class _userPageContent extends State<StarkLive> {
     macOSController?.destroy();
     super.dispose();
   }
-
 
   void isPlatform() {
     if (Platform.isAndroid) {
@@ -87,7 +85,7 @@ class _userPageContent extends State<StarkLive> {
 
   @override
   Widget build(BuildContext context) {
-    if (isMacOrWin != 'Windows' && isMacOrWin != 'MacOS') {
+    if (isMacOrWin != 'MacOS') {
       print(isMacOrWin);
       return Container();
     }

@@ -20,7 +20,7 @@ void main() async {
   // 添加自定义标题栏
   // WindowManager.addFrameWidget(MyTitleBar());
   WindowOptions windowOptions = WindowOptions(
-    size: Size(860, 630),
+    size: Size(910, 630),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,

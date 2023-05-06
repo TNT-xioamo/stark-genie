@@ -19,7 +19,7 @@ class _userPageContent extends State<StarkMain> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-          width: 900,
+          width: 910,
           margin: const EdgeInsets.only(left: 65),
           padding: const EdgeInsets.only(top: 30, left: 10),
           decoration: new BoxDecoration(
