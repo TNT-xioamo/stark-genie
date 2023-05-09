@@ -25,6 +25,7 @@ class _userPageContent extends State<StarkMain> {
     /// 间隔1秒
     _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
       ///定时任务
+      print('123123');
     });
   }
 
@@ -34,6 +35,8 @@ class _userPageContent extends State<StarkMain> {
     _timer.cancel();
     super.dispose();
   }
+
+  void handleUserInfo() {}
 
   @override
   Widget build(BuildContext context) {
