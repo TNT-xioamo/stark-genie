@@ -7,6 +7,7 @@ import 'package:Stark/pages/home_content/home_music.dart';
 import 'package:Stark/pages/home_content/home_aides.dart';
 import 'package:Stark/pages/home_content/home_weather.dart';
 import 'package:Stark/pages/home_content/home_live.dart';
+// import 'package:flutter_easyhub/flutter_easy_hub.dart';
 
 class StarkMain extends StatefulWidget {
   const StarkMain({Key? key}) : super(key: key);
@@ -15,6 +16,25 @@ class StarkMain extends StatefulWidget {
 }
 
 class _userPageContent extends State<StarkMain> {
+  late Timer _timer;
+  @override
+  void initState() {
+    super.initState();
+
+    /// 循环执行
+    /// 间隔1秒
+    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
+      ///定时任务
+    });
+  }
+
+  @override
+  void dispose() {
+    ///取消计时器
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
