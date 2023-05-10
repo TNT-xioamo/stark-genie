@@ -42,7 +42,7 @@ class LogintUtility {
   void handleError() => onError();
 
   void handleTimer() {
-    _timer = Timer.periodic(Duration(milliseconds: 30000), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 1800000), (timer) {
       ///定时任务
       handleLogin();
     });
@@ -51,4 +51,6 @@ class LogintUtility {
   void disposeCancel() {
     _timer.cancel();
   }
+
+  void handleUserInfo() {}
 }
