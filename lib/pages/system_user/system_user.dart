@@ -42,7 +42,7 @@ class _userPageState extends State<StarkSideways> {
   var prefs = null;
 
   @override
-  void _initState() { 
+  void _initState() {
     // prefs = SharedPreferences.getInstance();
     // super._initState();
   }
@@ -223,7 +223,7 @@ class _userPageState extends State<StarkSideways> {
                 ]),
                 Row(children: <Widget>[
                   Transform.translate(
-                    offset: Offset(0, 500),
+                    offset: Offset(0, 470),
                     child: userStatus,
                   ),
                 ]),

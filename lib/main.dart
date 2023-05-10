@@ -25,7 +25,7 @@ void main() async {
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.hidden,
+    titleBarStyle: TitleBarStyle.normal,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
@@ -34,6 +34,7 @@ void main() async {
   windowManager.setResizable(false);
   windowManager.setMinimizable(true);
   windowManager.setClosable(true);
+
   await localNotifier.setup(
     appName: 'stark-genie',
     // 仅 Windows
