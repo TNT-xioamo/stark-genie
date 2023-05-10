@@ -1,4 +1,4 @@
-package com.example.stark_genie
+package com.example.Stark
 
 import io.flutter.embedding.android.FlutterActivity
 

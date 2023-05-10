@@ -1,4 +1,4 @@
-# stark_genie
+# Stark
 
 A new Flutter project.
 

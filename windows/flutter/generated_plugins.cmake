@@ -3,7 +3,14 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  beauty_cam
+  camera_windows
+  flutter_webrtc
   local_notifier
+  screen_retriever
+  tray_manager
+  url_launcher_windows
+  window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stark_genie">
+    package="com.example.Stark">
    <application
-        android:label="stark_genie"
+        android:label="Stark"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
