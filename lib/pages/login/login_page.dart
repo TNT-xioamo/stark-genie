@@ -16,6 +16,7 @@ import 'package:Stark/server/dio_util/dio_method.dart';
 import 'package:Stark/server/dio_util/dio_response.dart';
 import 'package:Stark/server/dio_util/dio_util.dart';
 import 'package:cherry_toast/cherry_toast.dart';
+import 'package:Stark/login_util/login_util.dart';
 // import 'package:overlay_support/overlay_support.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,7 @@ class _LoginPageState extends State<StarkLogin> {
   }
 
   Future initCache() async {
+    CherryToast.success(title: Text('请使用内网环境')).show(context);
     // TextEditingController _userNameController = TextEditingController();
     // TextEditingController _pas = TextEditingController();
     final prefs = await SharedPreferences.getInstance();
@@ -127,17 +129,17 @@ class _LoginPageState extends State<StarkLogin> {
   // 发送通知
   String? _localNot(data) {
     final notification = LocalNotification(
-      identifier: data['id'], // 用来生成通用唯一识别码
+      identifier: data?['id'] ?? '3a21', // 用来生成通用唯一识别码
       title: '欢迎使用stark',
       subtitle: '',
-      body: '',
+      body: data?['message'],
       silent: false, // 用来设置是否静音
     );
     notification.onShow = () {}; // 显示通知
     notification.onClose = (even) {}; // 通知关闭
     notification.onClick = () {
       notification.destroy();
-    }; // // 通知被点击了
+    }; // 通知被点击了
     notification.onClickAction = (index) {}; // '你点击了通知的第$index个选项'
     notification.show();
   }
@@ -145,32 +147,39 @@ class _LoginPageState extends State<StarkLogin> {
   /// 处理登陆
   void _handleLogin() async {
     try {
-      CherryToast.success(title: Text('请使用内网环境')).show(context);
-      DioResponse result = await DioUtil().request(
-        "/user/user/auth",
-        method: DioMethod.post,
-        data: {"username": _username, "password": _password},
-      );
-      var data = new Map<String, dynamic>.from(result.data);
-      debugPrint('===${data['msg']}===');
-      if (data['code'] != 200)
-        return CherryToast.info(title: Text(data['msg'])).show(context);
       final prefs = await SharedPreferences.getInstance();
-      final setTokenResult =
-          await prefs.setString('user_token', data['data']['refreshToken']);
-      final user_id = await prefs.setInt('user_id', data['data']['userId']);
       await prefs.setString('user_phone', _username);
       await prefs.setString('user_password', _password);
-      debugPrint('===${data['data']}===');
-      if (setTokenResult) {
-        debugPrint('保存登录token成功');
-        _localNot(data);
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            '/StarkHomePage', (route) => route == null);
-        return CherryToast.success(title: Text('登陆成功！')).show(context);
-      } else {
-        debugPrint('error, 保存登录token失败');
-      }
+      LogintUtility().initUser(
+        onError: () =>
+            CherryToast.success(title: Text('登录失败,请检查网络环境')).show(context),
+        onSuccess: goHome,
+      );
+      // DioResponse result = await DioUtil().request(
+      //   "/user/user/auth",
+      //   method: DioMethod.post,
+      //   data: {"username": _username, "password": _password},
+      // );
+      // var data = new Map<String, dynamic>.from(result.data);
+      // debugPrint('===${data['msg']}===');
+      // if (data['code'] != 200)
+      //   return CherryToast.info(title: Text(data['msg'])).show(context);
+      // final prefs = await SharedPreferences.getInstance();
+      // final setTokenResult =
+      //     await prefs.setString('user_token', data['data']['refreshToken']);
+      // await prefs.setInt('user_id', data['data']['userId']);
+      // await prefs.setString('user_phone', _username);
+      // await prefs.setString('user_password', _password);
+      // debugPrint('===${data['data']}===');
+      // if (setTokenResult) {
+      //   debugPrint('保存登录token成功');
+      //   _localNot(data);
+      //   Navigator.of(context).pushNamedAndRemoveUntil(
+      //       '/StarkHomePage', (route) => route == null);
+      //   return CherryToast.success(title: Text('登陆成功！')).show(context);
+      // } else {
+      //   debugPrint('error, 保存登录token失败');
+      // }
       // Navigator.pushReplacement();
       // final Uri toLaunch = Uri.parse(
       //     'http://172.16.0.16:8000/#/login?token=${data['data']['refreshToken']}');
@@ -180,6 +189,13 @@ class _LoginPageState extends State<StarkLogin> {
       print(e);
     }
     return null;
+  }
+
+  void goHome() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/StarkHomePage', (route) => route == null);
+    _localNot({});
+    // return CherryToast.success(title: Text('登陆成功！')).show(context);
   }
 
   // 唤醒浏览器

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'pages/login/login_page.dart';
@@ -31,11 +32,14 @@ void main() async {
     await windowManager.focus();
   });
   windowManager.setResizable(false);
+  windowManager.setMinimizable(true);
+  windowManager.setClosable(true);
   await localNotifier.setup(
     appName: 'stark-genie',
     // 仅 Windows
     shortcutPolicy: ShortcutPolicy.requireCreate,
   );
+  // windowManager.setSkipTaskbar(true);
   SystemChannels.textInput.invokeMethod('TextInput.hide'); // 禁用IME输入法
   runApp(const MacosUIGalleryApp());
 }
@@ -59,19 +63,25 @@ class MyTitleBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 40.0,
-        color: Colors.grey[200],
+        height: 30.0,
+        color: Color.fromARGB(255, 145, 144, 144),
         child: Row(children: [
           IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.highlight_off),
+            color: Color.fromARGB(255, 230, 87, 87),
             onPressed: () => exit(0), // 点击关闭按钮时退出程序
           ),
-          Expanded(
-            child: Text(
-              'My App',
-              textAlign: TextAlign.center,
-            ),
+          IconButton(
+            icon: Icon(Icons.do_disturb_on),
+            color: Color.fromARGB(255, 246, 188, 64),
+            onPressed: () => exit(0), // 点击关闭按钮时退出程序
           ),
+          // Expanded(
+          //   child: Text(
+          //     'My App',
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
         ]));
   }
 }

@@ -238,6 +238,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_easyhub:
+    dependency: "direct main"
+    description:
+      name: flutter_easyhub
+      sha256: "9c24135f68f0b77e8d43b0c97082a95618a0e2189f92d6b06a36511082e52e6a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2+1"
   flutter_lints:
     dependency: "direct dev"
     description:
