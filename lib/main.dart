@@ -25,15 +25,15 @@ void main() async {
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
+    titleBarStyle: TitleBarStyle.hidden,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
   });
   windowManager.setResizable(false);
-  windowManager.setMinimizable(true);
-  windowManager.setClosable(true);
+  // windowManager.setMinimizable(true);
+  // windowManager.setClosable(true);
 
   await localNotifier.setup(
     appName: 'stark-genie',
@@ -65,7 +65,8 @@ class MyTitleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 30.0,
-        color: Color.fromARGB(255, 145, 144, 144),
+        width: 910,
+        color: Color.fromARGB(59, 255, 254, 254),
         child: Row(children: [
           IconButton(
             icon: Icon(Icons.highlight_off),

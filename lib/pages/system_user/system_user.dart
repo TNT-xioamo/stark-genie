@@ -2,12 +2,46 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Stark/pages/home_content/home_content.dart';
+import 'package:window_manager/window_manager.dart';
 
 class StarkSideways extends StatefulWidget {
   const StarkSideways({Key? key}) : super(key: key);
 
   @override
   _userPageState createState() => _userPageState();
+}
+
+class MyTitleBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        // height: 50.0,
+        width: 50,
+        // color: Color.fromARGB(59, 255, 254, 254),
+        padding: EdgeInsets.only(right: 5),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox(
+            width: 20,
+            height: 20,
+            child: IconButton(
+              iconSize: 20,
+              icon: Icon(Icons.highlight_off),
+              color: Color.fromARGB(255, 230, 87, 87),
+              onPressed: () => exit(0), // 点击关闭按钮时退出程序
+            ),
+          ),
+          SizedBox(
+              width: 20,
+              height: 20,
+              child: IconButton(
+                iconSize: 20,
+                icon: Icon(Icons.do_disturb_on),
+                color: Color.fromARGB(255, 246, 188, 64),
+                onPressed: () => windowManager.minimize(), // 点击关闭按钮时退出程序
+              )),
+        ]));
+  }
 }
 
 final List<NavigationRailDestination> destinations = const [
@@ -256,6 +290,15 @@ class _userPageState extends State<StarkSideways> {
                         child: userInfo,
                       ),
                     )),
+              )
+            ],
+          ),
+          Stack(
+            children: <Widget>[
+              Positioned(
+                top: -3,
+                left: 5,
+                child: MyTitleBar(),
               )
             ],
           ),
