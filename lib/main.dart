@@ -15,7 +15,6 @@ import 'package:window_manager/window_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-  SystemChannels.textInput.invokeMethod('TextInput.hide'); // 禁用IME输入法
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
@@ -40,7 +39,8 @@ void main() async {
     // 仅 Windows
     shortcutPolicy: ShortcutPolicy.requireCreate,
   );
-  windowManager.setSkipTaskbar(true);
+  // windowManager.setSkipTaskbar(true);
+  SystemChannels.textInput.invokeMethod('TextInput.hide'); // 禁用IME输入法
   runApp(const MacosUIGalleryApp());
 }
 
