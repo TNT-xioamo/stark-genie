@@ -38,11 +38,12 @@ Widget _buildLeftNavigation(int index) {
 class _userPageState extends State<StarkSideways> {
   bool _isVisible = false; //是现实用户信息
   bool _isState = true;
+  bool _isStatus = true;
   String account = '';
   var prefs = null;
 
   @override
-  void _initState() { 
+  void _initState() {
     // prefs = SharedPreferences.getInstance();
     // super._initState();
   }
@@ -169,9 +170,9 @@ class _userPageState extends State<StarkSideways> {
             SizedBox(
               width: 5,
             ),
-            Text(_isState ? '在线' : '离线',
+            Text(_isStatus ? '在线' : '离线',
                 style: TextStyle(
-                  color: _isState
+                  color: _isStatus
                       ? Color.fromARGB(255, 28, 153, 231)
                       : Color.fromARGB(255, 231, 28, 28),
                 ))
