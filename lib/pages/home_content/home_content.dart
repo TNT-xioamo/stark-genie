@@ -22,11 +22,10 @@ class _userPageContent extends State<StarkMain> {
     super.initState();
 
     /// 循环执行
-    /// 间隔1秒
-    _timer = Timer.periodic(Duration(milliseconds: 30000), (timer) {
-      ///定时任务
-      print('123123');
-    });
+    // _timer = Timer.periodic(Duration(milliseconds: 30000), (timer) {
+    //   ///定时任务
+    //   print('123123');
+    // });
   }
 
   @override

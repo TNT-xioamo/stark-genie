@@ -34,7 +34,8 @@ class LogintUtility {
     final setTokenResult =
         await prefs.setString('user_token', data['data']['refreshToken']);
     await prefs.setInt('user_id', data['data']['userId']);
-    handleSuccess(data);
+    // handleSuccess(data);
+    handleUserInfo();
   }
 
   void handleSuccess(data) => onSuccess();
@@ -52,5 +53,15 @@ class LogintUtility {
     _timer.cancel();
   }
 
-  void handleUserInfo() {}
+  void handleUserInfo() async {
+    DioResponse result = await DioUtil()
+        .request("/user/user/queryUserInfo", method: DioMethod.post);
+    var data = new Map<String, dynamic>.from(result.data);
+    if (data['code'] != 200) return handleError();
+    print(data['data']['name']);
+    await prefs.setString('user', data['data']['name']);
+    handleSuccess(data['data']);
+  }
 }
+
+// RequestOptions

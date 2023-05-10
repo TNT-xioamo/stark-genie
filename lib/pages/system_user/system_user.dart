@@ -40,17 +40,20 @@ class _userPageState extends State<StarkSideways> {
   bool _isState = true;
   bool _isStatus = true;
   String account = '';
+  String currentUser = '';
+
   var prefs = null;
 
-  @override
-  void _initState() {
-    // prefs = SharedPreferences.getInstance();
-    // super._initState();
-  }
+  // @override
+  // void initState() {
+  //   prefs = SharedPreferences.getInstance();
+  //   super.initState();
+  // }
 
   void _onOpenUserFloating(int value) async {
     prefs = await SharedPreferences.getInstance();
     account = prefs.getString('user_phone') ?? '';
+    currentUser = prefs.getString('user') ?? '';
     setState(() {
       _isVisible = !_isVisible;
       _isState = !_isState;
@@ -116,7 +119,7 @@ class _userPageState extends State<StarkSideways> {
               children: [
                 Container(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Text('Stark'),
+                  child: Text(currentUser == '刘星' ? 'Stark' : currentUser),
                 ),
                 Icon(Icons.account_circle,
                     color: Color.fromARGB(255, 45, 101, 255)),
@@ -162,7 +165,7 @@ class _userPageState extends State<StarkSideways> {
               width: 10,
               height: 10,
               decoration: BoxDecoration(
-                  color: _isState
+                  color: _isStatus
                       ? Color.fromARGB(255, 28, 153, 231)
                       : Color.fromARGB(255, 231, 28, 28),
                   borderRadius: BorderRadius.all(Radius.circular(5))),

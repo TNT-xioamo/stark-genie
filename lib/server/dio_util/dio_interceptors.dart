@@ -1,15 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:Stark/server/dio_util/dio_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioInterceptors extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     // 对非open的接口的请求参数全部增加userId
+    final prefs = await SharedPreferences.getInstance();
+    final setTokenResult = await prefs.getString('user_token') ?? '';
     if (!options.path.contains("open")) {
       options.queryParameters["userId"] = "xxx";
     }
     // 头部添加token
-    options.headers["token"] = "xxx";
+    options.headers["Authorization"] = "Bearer ${setTokenResult}";
     // 更多业务需求
     handler.next(options);
     // super.onRequest(options, handler);
