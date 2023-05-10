@@ -258,7 +258,7 @@ class _userPageState extends State<StarkSideways> {
                 ]),
                 Row(children: <Widget>[
                   Transform.translate(
-                    offset: Offset(0, 470),
+                    offset: Offset(0, 500),
                     child: userStatus,
                   ),
                 ]),
