@@ -23,7 +23,7 @@ class _userPageContent extends State<StarkMain> {
 
     /// 循环执行
     /// 间隔1秒
-    _timer = Timer.periodic(Duration(milliseconds: 1000), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 30000), (timer) {
       ///定时任务
       print('123123');
     });
