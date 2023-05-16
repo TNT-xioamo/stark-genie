@@ -13,7 +13,9 @@ class DioInterceptors extends Interceptor {
       options.queryParameters["userId"] = "xxx";
     }
     // 头部添加token
-    options.headers["Authorization"] = "Bearer ${setTokenResult}";
+    if (setTokenResult != '') {
+      options.headers["Authorization"] = "${setTokenResult}";
+    }
     // 更多业务需求
     handler.next(options);
     // super.onRequest(options, handler);

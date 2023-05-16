@@ -150,9 +150,8 @@ class _LoginPageState extends State<StarkLogin> {
       await prefs.setString('user_phone', _username);
       await prefs.setString('user_password', _password);
       LogintUtility().initUser(
-        onError: (msg) =>
-            CherryToast.success(title: Text(msg ?? '登录失败,请检查网络环境'))
-                .show(context),
+        onError: () =>
+            CherryToast.success(title: Text('登录失败,请检查网络环境')).show(context),
         onSuccess: goHome,
       );
       // DioResponse result = await DioUtil().request(
