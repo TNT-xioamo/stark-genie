@@ -20,19 +20,12 @@ class _userPageContent extends State<StarkMain> {
   @override
   void initState() {
     super.initState();
-
-    /// 循环执行
-    /// 间隔1秒
-    _timer = Timer.periodic(Duration(milliseconds: 30000), (timer) {
-      ///定时任务
-      print('123123');
-    });
   }
 
   @override
   void dispose() {
     ///取消计时器
-    _timer.cancel();
+    // _timer.cancel();
     super.dispose();
   }
 

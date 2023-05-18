@@ -17,6 +17,7 @@ class LogintUtility {
     this.onError = onError!;
     this.onSuccess = onSuccess!;
     prefs = await SharedPreferences.getInstance();
+    prefs.remove('user_token');
     _username = prefs.getString('user_phone') ?? '';
     _password = prefs.getString('user_password') ?? '';
     if (_username == '' || _password == '') return handleError();
@@ -30,11 +31,13 @@ class LogintUtility {
       data: {"username": _username, "password": _password},
     );
     var data = new Map<String, dynamic>.from(result.data);
+    print('=========${result}=========');
     if (data['code'] != 200) return handleError();
     final setTokenResult =
-        await prefs.setString('user_token', data['data']['refreshToken']);
+        await prefs.setString('user_token', data['data']['token']);
     await prefs.setInt('user_id', data['data']['userId']);
-    handleSuccess(data);
+    // handleSuccess(data);
+    handleUserInfo();
   }
 
   void handleSuccess(data) => onSuccess();
@@ -52,5 +55,17 @@ class LogintUtility {
     _timer.cancel();
   }
 
-  void handleUserInfo() {}
+  void handleUserInfo() async {
+    DioResponse result = await DioUtil().request(
+      "/user/user/queryUserInfo",
+      method: DioMethod.post,
+    );
+    var data = new Map<String, dynamic>.from(result.data);
+    if (data['code'] != 200) return handleError();
+    print(data['data']['name']);
+    await prefs.setString('user', data['data']['name']);
+    handleSuccess(data['data']);
+  }
 }
+
+// RequestOptions

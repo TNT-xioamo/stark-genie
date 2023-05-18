@@ -16,6 +16,7 @@ class StarkHomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<StarkHomePage> {
+  var webSocketUtility = null;
   @override
   void _hideWindow() {
     windowManager
@@ -32,11 +33,21 @@ class _HomePageState extends State<StarkHomePage> {
   }
 
   @override
+  void dispose() {
+    webSocketUtility?.closeSocket();
+    super.dispose();
+  }
+
+  void _disposeSocket() {
+    webSocketUtility?.closeSocket();
+  }
+
+  @override
   // 发送通知
   String? _localNot(data) {
     final notification = LocalNotification(
       identifier: '${data['id']}', // 用来生成通用唯一识别码
-      title: '你有新的消息需要处理！',
+      title: data['title'] ?? '您有新的消息需要处理！',
       subtitle: '',
       body: data['message'],
       silent: false, // 用来设置是否静音
@@ -58,7 +69,8 @@ class _HomePageState extends State<StarkHomePage> {
   void _handleInitSocket() async {
     final prefs = await SharedPreferences.getInstance();
     final user_id = await prefs.getInt('user_id');
-    WebSocketUtility().initWebSocket(
+    webSocketUtility = WebSocketUtility();
+    webSocketUtility.initWebSocket(
         userId: user_id,
         onOpen: () {
           WebSocketUtility().initHeartBeat();
@@ -69,7 +81,7 @@ class _HomePageState extends State<StarkHomePage> {
         },
         onError: (e) {
           var person = {
-            "title": "stark-message",
+            "title": "系统断网提示",
             "id": Random().nextInt(100),
             "message": "请检查网络状态!"
           };
@@ -79,6 +91,8 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(child: StarkSideways(key: ValueKey(320)));
+    return Material(
+        child: StarkSideways(
+            key: ValueKey(320), editParentVoid: () => _disposeSocket()));
   }
 }

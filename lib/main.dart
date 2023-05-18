@@ -107,8 +107,8 @@ class _AppState extends State<MacosUIGalleryApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: <String, WidgetBuilder>{
-        "/StarkLogin": (context) => const StarkLogin(),
-        "/StarkHomePage": (context) => const StarkHomePage(),
+        "/StarkLogin": (context) => const StarkLogin(key: ValueKey(3020)),
+        "/StarkHomePage": (context) => const StarkHomePage(key: ValueKey(3021)),
       },
     );
   }
