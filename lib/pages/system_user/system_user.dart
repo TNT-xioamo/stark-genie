@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:Stark/pages/home_content/home_content.dart';
 
 class StarkSideways extends StatefulWidget {
-  const StarkSideways({Key? key}) : super(key: key);
+  final editParentVoid;
+  const StarkSideways({Key? key, this.editParentVoid}) : super(key: key);
 
   @override
   _userPageState createState() => _userPageState();
@@ -62,10 +63,12 @@ class _userPageState extends State<StarkSideways> {
 
   void _onLogout() {
     _onOpenUserFloating(123);
+    widget.editParentVoid();
+    prefs.remove('user_phone');
+    prefs.remove('user');
+    prefs.remove('user_token');
     Navigator.of(context).pushNamedAndRemoveUntil(
-      '/StarkLogin',
-      (route) => route == null,
-    );
+        '/StarkLogin', ModalRoute.withName('/StarkLogin'));
   }
 
   @override
@@ -124,7 +127,7 @@ class _userPageState extends State<StarkSideways> {
                 Icon(Icons.account_circle,
                     color: Color.fromARGB(255, 45, 101, 255)),
                 Container(
-                  margin: const EdgeInsets.only(left: 150),
+                  margin: const EdgeInsets.only(left: 120),
                   child: userAvatar,
                 ),
               ],

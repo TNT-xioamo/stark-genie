@@ -39,6 +39,8 @@ class WebSocketUtility {
 
   var _heartBeat; // 心跳定时器
 
+  var _socketSta; // 状态
+
   var _heartTimes = 3000; // 心跳间隔(毫秒)
 
   num _reconnectCount = 60; // 重连次数，默认60次
@@ -68,18 +70,20 @@ class WebSocketUtility {
     this.onMessage = onMessage!;
     this.onError = onError!;
     this._SOCKET_IP = api ?? _SOCKET_URL;
-    this.userId = userId ?? 1;
+    this.userId = userId!;
     openSocket();
   }
 
   /// 开启WebSocket连接
   void openSocket() {
+    _socketSta = null;
     closeSocket();
     _webSocket = IOWebSocketChannel.connect(
         Uri.parse('${this._SOCKET_IP}/${this.userId}')); //
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
     // 连接成功，重置重连计数器
+    print('连接开启');
     _reconnectTimes = 0;
     if (_reconnectTimer != null) {
       _reconnectTimer.cancel();
@@ -101,6 +105,7 @@ class WebSocketUtility {
   /// WebSocket关闭连接回调
   webSocketOnDone() {
     print('closed');
+    if (_socketSta == 'done') return;
     reconnect();
   }
 
@@ -137,9 +142,11 @@ class WebSocketUtility {
   void closeSocket() {
     if (_webSocket != null) {
       print('WebSocket连接关闭');
-      _webSocket?.sink.close();
       destroyHeartBeat();
+      _webSocket?.sink.close();
       _socketStatus = SocketStatus.SocketStatusClosed;
+      _webSocket = null;
+      _socketSta = 'done';
     }
   }
 
