@@ -101,6 +101,7 @@ class _userPageState extends State<StarkSideways> {
     prefs.remove('user_phone');
     prefs.remove('user');
     prefs.remove('user_token');
+    prefs.remove('user_id');
     Navigator.of(context).pushNamedAndRemoveUntil(
         '/StarkLogin', ModalRoute.withName('/StarkLogin'));
   }
