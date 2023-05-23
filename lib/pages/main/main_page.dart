@@ -34,12 +34,12 @@ class _HomePageState extends State<StarkHomePage> {
 
   @override
   void dispose() {
-    webSocketUtility?.closeSocket();
+    webSocketUtility?.closeSocket('done');
     super.dispose();
   }
 
   void _disposeSocket() {
-    webSocketUtility?.closeSocket();
+    webSocketUtility?.closeSocket('done');
   }
 
   @override
