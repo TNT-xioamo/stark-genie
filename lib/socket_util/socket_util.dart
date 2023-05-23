@@ -77,7 +77,7 @@ class WebSocketUtility {
   /// 开启WebSocket连接
   void openSocket() {
     _socketSta = null;
-    closeSocket(null);
+    closeSocket();
     _webSocket = IOWebSocketChannel.connect(
         Uri.parse('${this._SOCKET_IP}/${this.userId}')); //
     // 连接成功，返回WebSocket实例
@@ -114,7 +114,7 @@ class WebSocketUtility {
     WebSocketChannelException ex = e;
     _socketStatus = SocketStatus.SocketStatusFailed;
     onError(ex.message);
-    closeSocket(null);
+    closeSocket();
   }
 
   /// 初始化心跳
@@ -139,7 +139,7 @@ class WebSocketUtility {
   }
 
   /// 关闭WebSocket
-  void closeSocket(status) {
+  void closeSocket({status = null}) {
     print('WebSocket连接关闭');
     destroyHeartBeat();
     _webSocket?.sink.close();
