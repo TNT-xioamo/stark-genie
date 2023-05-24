@@ -73,7 +73,7 @@ class _HomePageState extends State<StarkHomePage> {
     webSocketUtility.initWebSocket(
         userId: user_id,
         onOpen: () {
-          WebSocketUtility().initHeartBeat();
+          webSocketUtility.initHeartBeat();
         },
         onMessage: (data) {
           print('--${data}--');

@@ -7,7 +7,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 
 //  ws://172.16.0.19:9001/message/desktop/
-const String _SOCKET_URL = 'ws://172.16.0.16:9001/message/desktop';
+const String _SOCKET_URL = 'ws://172.16.0.19:9001/message/desktop';
 
 // Map<String, dynamic> headers = new Map();
 
