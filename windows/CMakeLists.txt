@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(stark_genie LANGUAGES CXX)
+project(Stark LANGUAGES CXX)
 
-set(BINARY_NAME "stark_genie")
+set(BINARY_NAME "Stark")
 
 cmake_policy(SET CMP0063 NEW)
 

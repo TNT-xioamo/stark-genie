@@ -1,6 +1,6 @@
 {
-    "name": "stark_genie",
-    "short_name": "stark_genie",
+    "name": "Stark",
+    "short_name": "Stark",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

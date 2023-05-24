@@ -1,8 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:cherry_toast/cherry_toast.dart';
 
-const String _SOCKET_URL = 'ws://121.40.165.18:8800';
+//  ws://172.16.0.19:9001/message/desktop/
+const String _SOCKET_URL = 'ws://172.16.0.19:9001/message/desktop';
+
+// Map<String, dynamic> headers = new Map();
+
+// headers['origin'] = 'https://x.xx.com';
 
 enum SocketStatus {
   SocketStatusConnected, // 已连接
@@ -12,24 +21,25 @@ enum SocketStatus {
 
 class WebSocketUtility {
   /// 单例对象
-  static late WebSocketUtility _socket;
+  static WebSocketUtility? _socket;
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
   WebSocketUtility._();
+
   /// 获取单例内部方法
   factory WebSocketUtility() {
     // 只能有一个实例
-    if (_socket == null) {
-      _socket = new WebSocketUtility._();
-    }
-    return _socket;
+    if (_socket == null) _socket ??= new WebSocketUtility._();
+    return _socket = WebSocketUtility._();
   }
 
-  IOWebSocketChannel _webSocket; // WebSocket
+  IOWebSocketChannel? _webSocket; // WebSocket
 
-  SocketStatus _socketStatus; // socket状态
+  SocketStatus _socketStatus = SocketStatus.SocketStatusClosed; // socket状态
 
   var _heartBeat; // 心跳定时器
+
+  var _socketSta; // 状态
 
   var _heartTimes = 3000; // 心跳间隔(毫秒)
 
@@ -39,29 +49,41 @@ class WebSocketUtility {
 
   var _reconnectTimer; // 重连定时器
 
-  Function onError; // 连接错误回调
+  late Function onError; // 连接错误回调
 
-  Function onOpen; // 连接开启回调
+  late Function onOpen; // 连接开启回调
 
-  Function onMessage; // 接收消息回调
+  late Function onMessage; // 接收消息回调
+
+  var _SOCKET_IP;
+
+  var userId;
 
   /// 初始化WebSocket
   void initWebSocket(
-      {Function? onOpen, Function? onMessage, Function? onError}) {
+      {String? api,
+      userId,
+      Function? onOpen,
+      Function? onMessage,
+      Function? onError}) {
     this.onOpen = onOpen!;
     this.onMessage = onMessage!;
     this.onError = onError!;
+    this._SOCKET_IP = api ?? _SOCKET_URL;
+    this.userId = userId!;
     openSocket();
   }
 
   /// 开启WebSocket连接
   void openSocket() {
+    _socketSta = null;
     closeSocket();
-    _webSocket = IOWebSocketChannel.connect(_SOCKET_URL);
-    print('WebSocket连接成功: $_SOCKET_URL');
+    _webSocket = IOWebSocketChannel.connect(
+        Uri.parse('${this._SOCKET_IP}/${this.userId}')); //
     // 连接成功，返回WebSocket实例
     _socketStatus = SocketStatus.SocketStatusConnected;
     // 连接成功，重置重连计数器
+    print('连接开启');
     _reconnectTimes = 0;
     if (_reconnectTimer != null) {
       _reconnectTimer.cancel();
@@ -69,18 +91,21 @@ class WebSocketUtility {
     }
     onOpen();
     // 接收消息
-    _webSocket.stream.listen((data) => webSocketOnMessage(data),
+    _webSocket?.stream.listen((data) => webSocketOnMessage(data),
         onError: webSocketOnError, onDone: webSocketOnDone);
   }
 
   /// WebSocket接收消息回调
   webSocketOnMessage(data) {
-    onMessage(data);
+    print('WebSocket连接成功: $_SOCKET_URL');
+    Map<String, dynamic> responseData = jsonDecode(data);
+    onMessage(responseData);
   }
 
   /// WebSocket关闭连接回调
   webSocketOnDone() {
     print('closed');
+    if (_socketSta == 'done') return;
     reconnect();
   }
 
@@ -114,13 +139,13 @@ class WebSocketUtility {
   }
 
   /// 关闭WebSocket
-  void closeSocket() {
-    if (_webSocket != null) {
-      print('WebSocket连接关闭');
-      _webSocket.sink.close();
-      destroyHeartBeat();
-      _socketStatus = SocketStatus.SocketStatusClosed;
-    }
+  void closeSocket({status = null}) {
+    print('WebSocket连接关闭');
+    destroyHeartBeat();
+    _webSocket?.sink.close();
+    _socketStatus = SocketStatus.SocketStatusClosed;
+    _webSocket = null;
+    _socketSta = status;
   }
 
   /// 发送WebSocket消息
@@ -129,7 +154,7 @@ class WebSocketUtility {
       switch (_socketStatus) {
         case SocketStatus.SocketStatusConnected:
           print('发送中：' + message);
-          _webSocket.sink.add(message);
+          _webSocket?.sink.add(message);
           break;
         case SocketStatus.SocketStatusClosed:
           print('连接已关闭');
@@ -162,10 +187,9 @@ class WebSocketUtility {
   }
 }
 
-
- /// 使用方法
- /// import 'package:my_app/utils/web_socket_utility.dart';
- /// WebSocketUtility().initWebSocket(onOpen: () {
+// 使用方法
+// import 'package:my_app/utils/web_socket_utility.dart';
+// WebSocketUtility().initWebSocket(onOpen: () {
 //   WebSocketUtility().initHeartBeat();
 // }, onMessage: (data) {
 //   print(data);

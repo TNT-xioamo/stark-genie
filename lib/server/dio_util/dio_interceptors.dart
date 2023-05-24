@@ -1,17 +1,22 @@
 import 'package:dio/dio.dart';
-import 'package:stark_genie/dio_util/dio_response.dart';
+import 'package:Stark/server/dio_util/dio_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioInterceptors extends Interceptor {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     // 对非open的接口的请求参数全部增加userId
+    final prefs = await SharedPreferences.getInstance();
+    final setTokenResult = await prefs.getString('user_token') ?? '';
     if (!options.path.contains("open")) {
       options.queryParameters["userId"] = "xxx";
     }
-
-    //  头部添加
-    options.headers["token"] = "xxx";
-    // 更多需求
+    // 头部添加token
+    if (setTokenResult != '') {
+      options.headers["Authorization"] = "${setTokenResult}";
+    }
+    // 更多业务需求
     handler.next(options);
     // super.onRequest(options, handler);
   }
@@ -26,14 +31,15 @@ class DioInterceptors extends Interceptor {
       response.data =
           DioResponse(code: 1, message: "请求失败啦", data: response.data);
     }
+
     // 对某些单独的url返回数据做特殊处理
     if (response.requestOptions.baseUrl.contains("???????")) {
       //....
     }
 
-    // 根据需求定制化处理
+    // 根据公司的业务需求进行定制化处理
 
-    // 注意
+    // 重点
     handler.next(response);
   }
 
@@ -43,15 +49,17 @@ class DioInterceptors extends Interceptor {
       // 连接服务器超时
       case DioErrorType.connectTimeout:
         {
-          // …… ……
+          // 根据自己的业务需求来设定该如何操作,可以是弹出框提示/或者做一些路由跳转处理
         }
         break;
       // 响应超时
       case DioErrorType.receiveTimeout:
-        {}
+        {
+          // 根据自己的业务需求来设定该如何操作,可以是弹出框提示/或者做一些路由跳转处理
+        }
         break;
       // 发送超时
-       case DioErrorType.sendTimeout:
+      case DioErrorType.sendTimeout:
         {
           // 根据自己的业务需求来设定该如何操作,可以是弹出框提示/或者做一些路由跳转处理
         }
@@ -62,19 +70,16 @@ class DioInterceptors extends Interceptor {
           // 根据自己的业务需求来设定该如何操作,可以是弹出框提示/或者做一些路由跳转处理
         }
         break;
-        //  404/503错误
+      // 404/503错误
       case DioErrorType.response:
         {
           // 根据自己的业务需求来设定该如何操作,可以是弹出框提示/或者做一些路由跳转处理
         }
         break;
       // other 其他错误类型
-       case DioErrorType.other:
-        {
-
-        }
+      case DioErrorType.other:
+        {}
         break;
-      default:
     }
     super.onError(err, handler);
   }
