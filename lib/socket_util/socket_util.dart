@@ -7,7 +7,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:cherry_toast/cherry_toast.dart';
 
 //  ws://172.16.0.19:9001/message/desktop/
-const String _SOCKET_URL = 'ws://172.16.0.16:9001/message/desktop';
+const String _SOCKET_URL = 'ws://172.16.0.19:9001/message/desktop';
 
 // Map<String, dynamic> headers = new Map();
 
@@ -139,15 +139,13 @@ class WebSocketUtility {
   }
 
   /// 关闭WebSocket
-  void closeSocket() {
-    if (_webSocket != null) {
-      print('WebSocket连接关闭');
-      destroyHeartBeat();
-      _webSocket?.sink.close();
-      _socketStatus = SocketStatus.SocketStatusClosed;
-      _webSocket = null;
-      _socketSta = 'done';
-    }
+  void closeSocket({status = null}) {
+    print('WebSocket连接关闭');
+    destroyHeartBeat();
+    _webSocket?.sink.close();
+    _socketStatus = SocketStatus.SocketStatusClosed;
+    _webSocket = null;
+    _socketSta = status;
   }
 
   /// 发送WebSocket消息
